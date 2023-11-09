@@ -1,13 +1,25 @@
+import shift_register as SR
+
+import RPi.GPIO as GPIO
+
 import serial
 import time
 
 import sys
-import cv2
+#import cv2
 
 import schemdraw
 import schemdraw.elements as elm
 
 import subprocess
+
+checkshift = 0b1010
+# bit a ZERO activa o relé
+# 0111
+# Rele 1 | Rele2 | Rele 3 | Rele 4
+# Q0 -> Relé 1
+# Q1 -> Relé 2
+# (...)
 
 # Resistências:
 # R1 = 470
@@ -48,6 +60,9 @@ def main():
                 subprocess.Popen([visualizador, caminho_imagem])
                 draw_schematic(R1_Value)
                 # Enviar os bits para o Shift register e activar os relés 
+                SR.register_clear()
+                time.sleep(1)
+                SR.SRoutput(checkshift)
                 break
             else:
                 raise ValueError("Escolha não é válida")
@@ -82,3 +97,4 @@ def draw_schematic(R1_Value):
 
 if __name__ == "__main__":
     main()
+    GPIO.cleanup()
