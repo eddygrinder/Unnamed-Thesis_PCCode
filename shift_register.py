@@ -26,7 +26,7 @@ GPIO.setup(OE, GPIO.OUT)
 # Reles 1 e 2
 #checkshift = 0b0011
 
-# Valor por defeito de espera nas operações do registo de deslocamento
+# Valor por defeito de espera nas operacoes do registo de deslocamento
 WaitTimeSR = 0.1
 
 #####################################################

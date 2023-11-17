@@ -13,7 +13,8 @@ import schemdraw.elements as elm
 
 import subprocess
 
-checkshift = 0b1010
+current_measure760  = 0b0010
+current_measure1K = 0b0100
 # bit a ZERO activa o relé
 # 0111
 # Rele 1 | Rele2 | Rele 3 | Rele 4
@@ -46,29 +47,33 @@ def main():
     # Escolha do valor da resistência
     # Não sai do ciclo enquanto não for feita uma escolha válida
     print("Para o estudo da Lei de Ohm escolha uma das três resistências:")
-    print("- 470 Ohm")
-    print ("- 1.2K")
+    print("- 760 Ohm - [760]")
+    print ("- 1.2K - [1K2]")
     print ("- 10K")
     
     while True:
         try:
-            R1_Value = input("Escolha o valor da Resistência - ")
+            R_Value = input("Escolha o valor da Resistência - ")
 
             # Validação da escolha
-            if R1_Value in ("470", "1K2", "10K"):
+            if R_Value in ("760", "1K2", "10K"):
                 caminho_imagem = "esquemaOhm.png"
                 subprocess.Popen([visualizador, caminho_imagem])
-                draw_schematic(R1_Value)
+                draw_schematic(R_Value)
                 # Enviar os bits para o Shift register e activar os relés 
-                SR.register_clear()
-                time.sleep(1)
-                SR.SRoutput(checkshift)
+                if R_Value == "760":
+                    SR.register_clear()
+                    time.sleep(1)
+                    SR.SRoutput(current_measure760)
+                elif R_Value == "1K2":
+                    SR.register_clear()
+                    time.sleep(1)
+                    SR.SRoutput(current_measure1K)
                 break
             else:
                 raise ValueError("Escolha não é válida")
         except ValueError as e:
             print(e)    
-
 
 #if (escolha == 'R1'):
 #print("escolheu R1")
@@ -97,4 +102,4 @@ def draw_schematic(R1_Value):
 
 if __name__ == "__main__":
     main()
-    GPIO.cleanup()
+    #GPIO.cleanup()
