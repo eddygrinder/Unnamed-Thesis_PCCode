@@ -3,7 +3,7 @@ import schemdraw
 import schemdraw.elements as elm
 
 import threading
-import cv2
+#import cv2
 
 matplotlib.rcParams['svg.fonttype'] = 'none'
 
@@ -21,7 +21,7 @@ def main():
         d.push() 
         d.pop()
         d += (L2 := elm.Line().tox(V1.start))
-        #d.draw()
+        d.draw()
         d.save('divisor.png')
     
 main ()
