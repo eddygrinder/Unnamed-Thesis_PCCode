@@ -6,9 +6,9 @@ import schemdraw
 import schemdraw.elements as elm
 
 # Caminho para o visualizador de imagens (pode variar dependendo do seu sistema operacional)
-visualizador = "xdg-open"  # Linux
+#visualizador = "xdg-open"  # Linux
 # visualizador = "open"  # macOS
-# visualizador = "notepad"  # Windows
+visualizador = "start"  # Windows
 
 import threading
 
@@ -137,20 +137,6 @@ class App(customtkinter.CTk):
 
             new_window_DíodoTransistor.mainloop()
     
-    def button_second_window_Ohm(self):
-        checked_checkboxes = self.checkbox_frame_Ohm.get()
-        if len(checked_checkboxes) != 1:
-            messagebox.showerror("Erro", "Selecione apenas uma opção.")
-        else:
-            option = checked_checkboxes[0]  # Obtém a opção selecionada
-            draw_scheme(option)
-            caminho_imagem = "esquemaOhm.png"
-            subprocess.Popen([visualizador, caminho_imagem]) # Windows acrescentar , shell=True
-            #subprocess.run(["python", "Menu//scheme.py"]) 
-            print("OK")
-        self.button = customtkinter.CTkButton(self, text="OK/Seguinte", command=self.button_third_window_Ohm)
-        self.button.grid(row=3, column=0, padx=10, pady=10, sticky="ew")
-
     def button_third_window_Ohm(self):
     # Lógica para o botão na segunda janela
         self.button = customtkinter.CTkButton(self, text="OK/Seguinte")
