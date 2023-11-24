@@ -15,24 +15,6 @@ import threading
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("dark-blue")
 
-class ToplevelWindow(customtkinter.CTkToplevel):
-    def __init__(self, title, values):
-        super().__init__(self, title, values)
-        self.common_functions = CommonFunctions()  
-        # Criar uma instância de CommonFunctions para poder chamar outra função definida numa class 
-
-        self.geometry("300x200")
-        self.title("Lei Ohm")
-
-        self.checkbox_frame = CheckboxFrame(self, "Escolha", values=values)
-        self.checkbox_frame.grid(row=0, column=0, padx=10, pady=(10, 0), sticky="nsew")
-
-        self.button = customtkinter.CTkButton(self, text="OK", command=self.button_callback)
-        self.button.grid(row=1, column=0, padx=10, pady=10)
-
-        self.button_cancel = customtkinter.CTkButton(self, text="Cancelar", command=self.destroy)
-        self.button_cancel.grid(row=1, column=1, padx=10, pady=10)
-
 class OhmWindow(customtkinter.CTk):
     def __init__(self, title, values):
         super().__init__()
@@ -108,13 +90,7 @@ class App(customtkinter.CTk):
         self.button_cancel = customtkinter.CTkButton(self, text="Cancelar", command=self.destroy)
         self.button_cancel.grid(row=1, column=1, padx=10, pady=10)
 
-        self.toplevel_window = None
-
-    def open_toplevel(self):
-        if self.toplevel_window is None or not self.toplevel_window.winfo_exists():
-            self.toplevel_window = ToplevelWindow(self)  # create window if its None or destroyed
-        else:
-            self.toplevel_window.focus()  # if window exists focus it
+        #self.toplevel_window = None
 
     def button_callback(self):
         checked_checkboxes = self.checkbox_frame.get()
@@ -123,8 +99,8 @@ class App(customtkinter.CTk):
         else:
             option = checked_checkboxes[0]  # Obtém a opção selecionada
         if option == "Lei de Ohm":
-            new_window_Ohm = OhmWindow("Mais opções - Lei de Ohm", values=["1K", "2K", "3K"])
-            new_window_Ohm.mainloop()
+            self.new_window_Ohm = OhmWindow("Mais opções - Lei de Ohm", values=["1K", "2K", "3K"])
+            self.new_window_Ohm.mainloop()
         elif option == "Lei de Kirchhoff":
             new_window_Kirchhoff = KirchhoffWindow("Mais opções - Lei de Kirchhoff", values=["10K", "20K", "30K"])
             new_window_Kirchhoff.mainloop()
