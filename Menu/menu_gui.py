@@ -1,6 +1,9 @@
+import os
 import customtkinter
 from tkinter import messagebox
 import subprocess
+
+from PIL import Image
 
 import schemdraw
 import schemdraw.elements as elm
@@ -15,14 +18,12 @@ import threading
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("dark-blue")
 
-class OhmWindow(customtkinter.CTk):
+class OhmWindow(customtkinter.CTkToplevel):
     def __init__(self, title, values):
         super().__init__()
         
         self.common_functions = CommonFunctions()  
         # Criar uma instância de CommonFunctions para poder chamar outra função definida numa class 
-        #self.destroy_window = destroywindow()
-
 
         self.geometry("300x200")
         self.title("Lei Ohm")
@@ -42,13 +43,11 @@ class OhmWindow(customtkinter.CTk):
             messagebox.showerror("Erro", "Selecione apenas uma opção.")
         else:
             option = checked_checkboxes[0]  # Obtém a opção selecionada
-            self.common_functions.option_output(option)
+            # Criar a janela e exibir a imagem        
+            self.common_functions.option_output(option)         
     
     def close_window(self):
-        try:
-            self.destroy()
-        except Exception as e:
-            messagebox.showerror("Erro", e)
+        self.destroy()
 
 class KirchhoffWindow(customtkinter.CTk):
     def __init__(self, title, values):
@@ -65,7 +64,7 @@ class KirchhoffWindow(customtkinter.CTk):
         self.button = customtkinter.CTkButton(self, text="OK", command=self.button_callback)
         self.button.grid(row=1, column=0, padx=10, pady=10)
         
-        self.button_cancel = customtkinter.CTkButton(self, text="Cancelar", command=self.destroy)
+        self.button_cancel = customtkinter.CTkButton(self, text="Cancelar", command=self.withdraw)
         self.button_cancel.grid(row=1, column=1, padx=10, pady=10)
 
     def button_callback(self):
@@ -76,11 +75,9 @@ class KirchhoffWindow(customtkinter.CTk):
             option = checked_checkboxes[0]  # Obtém a opção selecionada
             self.common_functions.option_output(option)
 
-class App(customtkinter.CTk):
+class MainWindow(customtkinter.CTk):
     def __init__(self):
         super().__init__()
-
-        #self.destroy_window = destroywindow(self)
 
         self.selected_value = None  # Inicialmente, nenhum valor está selecionado
 
@@ -97,7 +94,10 @@ class App(customtkinter.CTk):
         
         self.button_cancel = customtkinter.CTkButton(self, text="Cancelar", command=self.close_window)
         self.button_cancel.grid(row=1, column=1, padx=10, pady=10)
-       
+    
+    def close_window(self):
+        self.destroy()
+    
     def button_callback(self):
         checked_checkboxes = self.checkbox_frame.get()
         if len(checked_checkboxes) != 1:
@@ -112,12 +112,6 @@ class App(customtkinter.CTk):
             new_window_Kirchhoff.mainloop()
         elif option == "DíodoTransistor":
             pass
-     
-    def close_window(self):
-        try:
-            self.destroy()
-        except Exception as e:
-            messagebox.showerror("Erro", e)
 
 class CheckboxFrame(customtkinter.CTkFrame):
     def __init__(self, master, title, values):
@@ -138,13 +132,13 @@ class CheckboxFrame(customtkinter.CTkFrame):
         checked_checkboxes = [checkbox.cget("text") for checkbox in self.checkboxes if checkbox.get() == 1]
         return checked_checkboxes
 
+
 class CommonFunctions: 
     def option_output(self, option):
         self.draw_scheme(option)
         caminho_imagem = "esquemaOhm.jpg"
         subprocess.Popen([visualizador, caminho_imagem], shell=True)
-        #subprocess.run(["python", "Menu//scheme.py"]) 
-        
+
     def draw_scheme(self, option):
         with schemdraw.Drawing(show=False) as d:
             d.config(unit=5) #tamanho do componente
@@ -161,6 +155,6 @@ class CommonFunctions:
             d += (L2 := elm.Line().tox(V1.start))            
             #d.draw()
             d.save('esquemaOhm.jpg')
-
-app = App()
+           
+app = MainWindow()
 app.mainloop()
