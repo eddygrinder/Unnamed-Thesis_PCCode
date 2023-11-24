@@ -15,14 +15,11 @@ import threading
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("dark-blue")
 
-class OhmWindow(customtkinter.CTk):
+class ToplevelWindow(customtkinter.CTkToplevel):
     def __init__(self, title, values):
-        super().__init__()
-        
+        super().__init__(self, title, values)
         self.common_functions = CommonFunctions()  
         # Criar uma instância de CommonFunctions para poder chamar outra função definida numa class 
-        #self.destroy_window = destroywindow()
-
 
         self.geometry("300x200")
         self.title("Lei Ohm")
@@ -33,7 +30,26 @@ class OhmWindow(customtkinter.CTk):
         self.button = customtkinter.CTkButton(self, text="OK", command=self.button_callback)
         self.button.grid(row=1, column=0, padx=10, pady=10)
 
-        self.button_cancel = customtkinter.CTkButton(self, text="Cancelar", command=self.close_window)
+        self.button_cancel = customtkinter.CTkButton(self, text="Cancelar", command=self.destroy)
+        self.button_cancel.grid(row=1, column=1, padx=10, pady=10)
+
+class OhmWindow(customtkinter.CTk):
+    def __init__(self, title, values):
+        super().__init__()
+        
+        self.common_functions = CommonFunctions()  
+        # Criar uma instância de CommonFunctions para poder chamar outra função definida numa class 
+
+        self.geometry("300x200")
+        self.title("Lei Ohm")
+
+        self.checkbox_frame = CheckboxFrame(self, "Escolha", values=values)
+        self.checkbox_frame.grid(row=0, column=0, padx=10, pady=(10, 0), sticky="nsew")
+
+        self.button = customtkinter.CTkButton(self, text="OK", command=self.button_callback)
+        self.button.grid(row=1, column=0, padx=10, pady=10)
+
+        self.button_cancel = customtkinter.CTkButton(self, text="Cancelar", command=self.destroy)
         self.button_cancel.grid(row=1, column=1, padx=10, pady=10)
 
     def button_callback(self):
@@ -43,12 +59,6 @@ class OhmWindow(customtkinter.CTk):
         else:
             option = checked_checkboxes[0]  # Obtém a opção selecionada
             self.common_functions.option_output(option)
-    
-    def close_window(self):
-        try:
-            self.destroy()
-        except Exception as e:
-            messagebox.showerror("Erro", e)
 
 class KirchhoffWindow(customtkinter.CTk):
     def __init__(self, title, values):
@@ -76,11 +86,11 @@ class KirchhoffWindow(customtkinter.CTk):
             option = checked_checkboxes[0]  # Obtém a opção selecionada
             self.common_functions.option_output(option)
 
-class App(customtkinter.CTk):
-    def __init__(self):
-        super().__init__()
 
-        #self.destroy_window = destroywindow(self)
+class App(customtkinter.CTk):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.geometry("500x400")
 
         self.selected_value = None  # Inicialmente, nenhum valor está selecionado
 
@@ -95,9 +105,17 @@ class App(customtkinter.CTk):
         self.button.grid(row=1, column=0, padx=10, pady=10, sticky="ew")
         # Botão "Cancelar" que fecha a janela atual
         
-        self.button_cancel = customtkinter.CTkButton(self, text="Cancelar", command=self.close_window)
+        self.button_cancel = customtkinter.CTkButton(self, text="Cancelar", command=self.destroy)
         self.button_cancel.grid(row=1, column=1, padx=10, pady=10)
-       
+
+        self.toplevel_window = None
+
+    def open_toplevel(self):
+        if self.toplevel_window is None or not self.toplevel_window.winfo_exists():
+            self.toplevel_window = ToplevelWindow(self)  # create window if its None or destroyed
+        else:
+            self.toplevel_window.focus()  # if window exists focus it
+
     def button_callback(self):
         checked_checkboxes = self.checkbox_frame.get()
         if len(checked_checkboxes) != 1:
@@ -112,12 +130,6 @@ class App(customtkinter.CTk):
             new_window_Kirchhoff.mainloop()
         elif option == "DíodoTransistor":
             pass
-     
-    def close_window(self):
-        try:
-            self.destroy()
-        except Exception as e:
-            messagebox.showerror("Erro", e)
 
 class CheckboxFrame(customtkinter.CTkFrame):
     def __init__(self, master, title, values):
@@ -138,12 +150,13 @@ class CheckboxFrame(customtkinter.CTkFrame):
         checked_checkboxes = [checkbox.cget("text") for checkbox in self.checkboxes if checkbox.get() == 1]
         return checked_checkboxes
 
-class CommonFunctions: 
+class CommonFunctions:
     def option_output(self, option):
         self.draw_scheme(option)
         caminho_imagem = "esquemaOhm.jpg"
         subprocess.Popen([visualizador, caminho_imagem], shell=True)
         #subprocess.run(["python", "Menu//scheme.py"]) 
+        print("OK")
         
     def draw_scheme(self, option):
         with schemdraw.Drawing(show=False) as d:
@@ -162,5 +175,7 @@ class CommonFunctions:
             #d.draw()
             d.save('esquemaOhm.jpg')
 
-app = App()
-app.mainloop()
+
+if __name__ == "__main__":
+    app = App()
+    app.mainloop()
