@@ -1,4 +1,12 @@
-#import os
+import sys
+import os
+main_dir = os.path.dirname( __file__ )
+modules_dir = os.path.join( main_dir, '..')
+sys.path.append( modules_dir )
+
+import shift_register as SR
+import time
+
 import customtkinter
 from tkinter import messagebox
 #import subprocess
@@ -8,14 +16,19 @@ from common_functions import CommonFunctions
 #import schemdraw.elements as elm
 
 # Caminho para o visualizador de imagens (pode variar dependendo do seu sistema operacional)
-#visualizador = "xdg-open"  # Linux
+# visualizador = "xdg-open"  # Linux
 # visualizador = "open"  # macOS
-visualizador = "start"  # Windows
+#visualizador = "start"  # Windows
 
 import threading
 
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("dark-blue")
+
+#current_measure760  = 0b0010
+rele_1K = 0b1010
+# bit a ZERO activa o relé
+
 
 class MainWindow(customtkinter.CTk):
     def __init__(self):
@@ -58,6 +71,9 @@ class MainWindow(customtkinter.CTk):
             messagebox.showerror("Erro", "Selecione apenas uma opção.")
         else:
             option = checked_checkboxes[0]  # Obtém a opção selecionada
+            SR.register_clear()
+            time.sleep(1)
+            SR.SRoutput(rele_1K)
             self.common_functions.option_output(option)
 
     def safe_close(self):

@@ -5,9 +5,9 @@ import schemdraw
 from schemdraw import elements as elm
 
 # Caminho para o visualizador de imagens (pode variar dependendo do seu sistema operacional)
-#visualizador = "xdg-open"  # Linux
+visualizador = "xdg-open"  # Linux
 # visualizador = "open"  # macOS
-visualizador = "start"  # Windows
+#visualizador = "start"  # Windows
 
 class CommonFunctions: 
     def option_output(self, option):
