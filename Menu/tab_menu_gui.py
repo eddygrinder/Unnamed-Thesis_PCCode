@@ -1,7 +1,6 @@
 #import os
 import customtkinter
 from tkinter import messagebox
-#import subprocess
 from common_functions import CommonFunctions
 
 #import schemdraw
