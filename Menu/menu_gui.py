@@ -128,7 +128,7 @@ class CheckboxFrame(customtkinter.CTkFrame):
         self.title = title
         self.checkboxes = []
 
-        title_label = customtkinter.CTkLabel(self, text="self.title", fg_color="gray30", corner_radius=6)
+        title_label = customtkinter.CTkLabel(self, text="Teste circuitos", fg_color="gray30", corner_radius=6)
         title_label.grid(row=0, column=0, padx=10, pady=(10, 0), sticky="ew")
 
         for i, value in enumerate(values):
