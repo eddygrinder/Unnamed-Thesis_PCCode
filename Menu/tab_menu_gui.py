@@ -1,4 +1,4 @@
-import os
+#import os
 import customtkinter
 from tkinter import messagebox
 from common_functions import CommonFunctions
@@ -7,23 +7,20 @@ import platform
 #import schemdraw
 #import schemdraw.elements as elm
 
-# Check operating system
-def check_os(status):
-    match status:
-        case "Linux":
-            visualizador = "start"
-            return visualizador
-        case "Windows":
-            visualizador = "xdg-open"
-            return visualizador
-        case "Darwin": # Verifica se é Mac
-            visualizador = "open"  # macOS
-            return visualizador
-status = platform.system()
-check_os(status)
+# Caminho para o visualizador de imagens (pode variar dependendo do seu sistema operacional)
+#visualizador = "xdg-open"  # Linux
+# visualizador = "open"  # macOS
+visualizador = "start"  # Windows
+
+import threading
 
 customtkinter.set_appearance_mode("light")
 customtkinter.set_default_color_theme("dark-blue")
+
+#current_measure760  = 0b0010
+rele_1K = 0b1010
+# bit a ZERO activa o relé
+
 
 class MainWindow(customtkinter.CTk):
     def __init__(self):
@@ -66,6 +63,9 @@ class MainWindow(customtkinter.CTk):
             messagebox.showerror("Erro", "Selecione apenas uma opção.")
         else:
             option = checked_checkboxes[0]  # Obtém a opção selecionada
+            SR.register_clear()
+            time.sleep(1)
+            SR.SRoutput(rele_1K)
             self.common_functions.option_output(option)
 
     def safe_close(self):
