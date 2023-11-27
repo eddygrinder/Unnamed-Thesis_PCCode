@@ -1,4 +1,16 @@
-#import os
+<<<<<<< HEAD
+import os
+=======
+import sys
+import os
+main_dir = os.path.dirname( __file__ )
+modules_dir = os.path.join( main_dir, '..')
+sys.path.append( modules_dir )
+
+import shift_register as SR
+import time
+
+>>>>>>> 2ceb15ea8baa728fc32237d2f5a860f7aeb30bb9
 import customtkinter
 from tkinter import messagebox
 from common_functions import CommonFunctions
@@ -7,12 +19,27 @@ import platform
 #import schemdraw
 #import schemdraw.elements as elm
 
+<<<<<<< HEAD
+# Check operating system
+def check_os(status):
+    match status:
+        case "Linux":
+            visualizador = "start"
+            return visualizador
+        case "Windows":
+            visualizador = "xdg-open"
+            return visualizador
+        case "Darwin": # Verifica se é Mac
+            visualizador = "open"  # macOS
+            return visualizador
+status = platform.system()
+check_os(status)
+=======
 # Caminho para o visualizador de imagens (pode variar dependendo do seu sistema operacional)
-#visualizador = "xdg-open"  # Linux
+# visualizador = "xdg-open"  # Linux
 # visualizador = "open"  # macOS
-visualizador = "start"  # Windows
-
-import threading
+#visualizador = "start"  # Windows
+>>>>>>> 2ceb15ea8baa728fc32237d2f5a860f7aeb30bb9
 
 customtkinter.set_appearance_mode("light")
 customtkinter.set_default_color_theme("dark-blue")
