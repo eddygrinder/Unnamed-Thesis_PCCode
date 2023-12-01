@@ -53,21 +53,20 @@ body {font-family: "Lato", sans-serif;}
 </head>
 <body>
 
-<h2>VISIR</h2>
-<p>Escolha qual dos circuitos quer simular:</p>
+<h2 style="text-align:center">Lightbox</h2>
 
-<div class="tab">
-  <button class="tablinks" onclick="openCity(event, 'Ohm')" id="defaultOpen">Lei de Ohm</button>
-  <button class="tablinks" onclick="openCity(event, 'MeiaOnda')">Retificador Meia onda</button>
-  <button class="tablinks" onclick="openCity(event, 'OndaCompleta')">Retificador Onda Completa</button>
-</div>
-
-<div id="Ohm" class="tabcontent">
-  <h3>Ohm</h3>
-  <div class="image-container">
-    <img src="../images/circuit_R1.png" alt="" width="35%">
-    <img src="../images/circuit_R2.png" alt="" width="30%">
-    <img src="../images/circuit_R3.png" alt="" width="30%">
+<div class="row">
+  <div class="column">
+    <img src="../images/circuit_R1.png" style="width:100%" onclick="openModal();currentSlide(1)" class="hover-shadow cursor">
+  </div>
+  <div class="column">
+    <img src="../images/circuit_R2.png" style="width:100%" onclick="openModal();currentSlide(2)" class="hover-shadow cursor">
+  </div>
+  <div class="column">
+    <img src="../images/circuit_R3.png" style="width:100%" onclick="openModal();currentSlide(3)" class="hover-shadow cursor">
+  </div>
+  <div class="column">
+    <img src="img_lights.jpg" style="width:100%" onclick="openModal();currentSlide(4)" class="hover-shadow cursor">
   </div>
 </div>
 
