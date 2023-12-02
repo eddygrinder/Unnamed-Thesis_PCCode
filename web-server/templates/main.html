@@ -53,6 +53,7 @@ body {font-family: "Lato", sans-serif;}
 .responsive {
   max-width: 100%;
   height: auto;
+  
 }
 </style>
 </head>
@@ -62,8 +63,8 @@ body {font-family: "Lato", sans-serif;}
 <p>Escolha um dos três circuitos:</p>
 
 <div class="tab">
-  <button class="tablinks" onclick="showImage('circuit_R1.png')">Lei de Ohm</button>
-  <button class="tablinks" onclick="showImage('circuit_R2.png')">Retificador meia-onda</button>
+  <button class="tablinks" onclick="openchoice(event, 'Ohm')" id="defaultOpen">Lei de Ohm</button>
+  <button class="tablinks" onclick="openchoice(event, 'MeiaOnda')">Retificador meia-onda</button>
   <button class="tablinks" onclick="showImage('circuit_R3.png')">Retificador Onda Completa</button>
 </div>
 
@@ -77,6 +78,33 @@ body {font-family: "Lato", sans-serif;}
   </div>
 </div>
    
+<div id="MeiaOnda" class="tabcontent">
+  <h3>Escolha um dos três circuitos</h3>
+  <p>Clique OK para seguir</p>
+  <div>
+    <img src="../images/circuit_R3.png" width="30%" height="auto" alt="circuito R1" class="responsive">
+  </div>
+</div>
+
+<script>
+  function openchoice(evt, choice) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(choice).style.display = "block";
+    evt.currentTarget.className += " active";
+  }
+  
+  // Get the element with id="defaultOpen" and click on it
+  document.getElementById("defaultOpen").click();
+  </script>
+
 </body>
 </html>
 
