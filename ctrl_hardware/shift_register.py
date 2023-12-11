@@ -12,7 +12,7 @@ warnings.filterwarnings("ignore")
 SER = 5         # GPIO 5 - SER/DS (serial data input, SPI data)
 RCLK = 6        # GPIO 6 - RCLK/STCP
 SRCLK = 13      # GPIO 13 - SRCLK/SHCP (storage register clock pin, SPI clock)
-SRCLR = 26      # GPIO 26 - O registo de deslocamento é limpo (ACTIVO BAIXO)
+SRCLR = 26      # GPIO 26 - O registo de deslocamento sudo  limpo (ACTIVO BAIXO)
 OE = 22         # GPIO 22 - Enable/Disable do SR
 
 # Setup dos pinos
@@ -31,7 +31,7 @@ WaitTimeSR = 0.1
 
 #####################################################
 # Tabela de verdade do Registo de Deslocamento
-# SER | SRCLK | 'SRCLR | RCLK |  'OE | Saídas/Funções
+# SER | SRCLK | 'SRCLR | RCLK |  'OE | Saï¿½das/Funï¿½ï¿½es
 #  X      X       X       X       H    Q's inactivas
 #  X      X       X       X       L    Q'S activos
 #  X      X       L       X       X    SR limpo
@@ -40,13 +40,13 @@ WaitTimeSR = 0.1
 #  X      X       X     +et       X   dados out
 ######################################################
 
-# Inicaializa o pino de clear dos registos a 1 - o clear é controlado e feito numa função
+# Inicaializa o pino de clear dos registos a 1 - o clear ï¿½ controlado e feito numa funï¿½ï¿½o
 GPIO.output(SRCLR,1)
 
-# Enable do SR - saídas sempre activas
+# Enable do SR - saï¿½das sempre activas
 GPIO.output(OE, 0)
 
-# Função que verifica e desloca os bits para armazenar no registo de deslocamento
+# Funï¿½ï¿½o que verifica e desloca os bits para armazenar no registo de deslocamento
 def SRoutput(checkshift):
     for i in range(4):
         shift = checkshift & 1
@@ -59,14 +59,14 @@ def SRoutput(checkshift):
         checkshift = checkshift >> 1
     OutputReg()
 
-# Definição da função que envia os dados para o registo de deslocamento,
+# Definiï¿½ï¿½o da funï¿½ï¿½o que envia os dados para o registo de deslocamento,
 # segundo o algoritmo descrito em baixo
 
 ### ALGORITMO ###
 # Enviar um bit para o pino SER/DS
-### Depois de enviado, é dado um impulso de clock (SRCLK/SHCP) e o bit armazenado nos registos
-###### ... um segundo bit é enviado, repetindo os dois passos em cima - É repetido até estarem armazenados 8 bits
-######### Por ultimo é dado um impulso aos registos (RCLK/STCP) para obter os 8 bits na saida
+### Depois de enviado, ï¿½ dado um impulso de clock (SRCLK/SHCP) e o bit armazenado nos registos
+###### ... um segundo bit ï¿½ enviado, repetindo os dois passos em cima - ï¿½ repetido atï¿½ estarem armazenados 8 bits
+######### Por ultimo ï¿½ dado um impulso aos registos (RCLK/STCP) para obter os 8 bits na saida
 
 def WriteReg (WriteBit, WaitTimeSR):
     GPIO.output (SRCLK, 0)  # Clock - flanco POSITIVO
