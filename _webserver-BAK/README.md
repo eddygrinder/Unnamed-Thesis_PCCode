@@ -1,2 +1,0 @@
-# server
-Raspberry PI Server
