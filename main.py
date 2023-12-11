@@ -1,10 +1,13 @@
-from flask import Flask, render_template, url_for, redirect
+from flask import Flask, render_template, url_for, redirect, request
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import InputRequired, Length, ValidationError
 
-app = Flask(__name__)
+import subprocess
+import os
+
+app = create_app()
 app.config['SECRET_KEY'] = 'thisisasecretkey'
 
 
@@ -30,11 +33,17 @@ class LoginForm(FlaskForm):
 
     submit = SubmitField('Login')
 
+@app.route("/images/<path:filename>")
+def serve_image(filename):
+    return send_from_directory("images", filename)
 
 @app.route('/')
-def home():
+def index():
     return render_template('home.html')
 
+@app.route('/images/<path:filename>')
+def serve_image(filename):
+    return send_from_directory("images", filename)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -60,6 +69,5 @@ def register():
     form = RegisterForm()
     return render_template('register.html', form=form)
 
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run(debug=True)
