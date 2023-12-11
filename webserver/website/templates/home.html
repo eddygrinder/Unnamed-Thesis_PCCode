@@ -72,7 +72,7 @@
     <h3>Escolha um dos três circuitos</h3>
     <p>Clique OK para seguir</p>
     <div>
-      <img src="../images/circuit_R1.png" width="30%" height="auto" alt="circuito R1" class="responsive">
+      <img src="../images/circuit_R1.png" width="30%" height="auto" alt="circuito R1" class="responsive" onclick="accionarRele('0101')">
       <img src="../images/circuit_R2.png" width="30%" height="auto" class="responsive">
       <img src="../images/circuit_R3.png" width="30%" height="auto" class="responsive">
     </div>
@@ -105,5 +105,20 @@
     document.getElementById("defaultOpen").click();
     </script>
   
+  <script>
+    function accionarReles(parametro) {
+      // Transforma o parâmetro em uma string binária
+      const parametroBinario = '0b' + parametro;
+      fetch(`/atualizar_shift_register?parametro=${parametroBinario}`)
+        .then(response => {
+          // Lida com a resposta, se necessário
+          console.log('Requisição enviada!');
+        })
+        .catch(error => {
+          // Lida com possíveis erros
+          console.error('Erro:', error);
+        });
+    }
+  </script>
 
 {% endblock %}
