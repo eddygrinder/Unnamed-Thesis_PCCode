@@ -24,7 +24,7 @@
     (symbol "3570-1331-123_0_1"
       (polyline
         (pts
-          (xy 14.224 -3.81)
+          (xy 14.605 -3.81)
           (xy 16.7132 -3.81)
         )
         (stroke (width 0.127) (type default))
@@ -32,8 +32,8 @@
       )
       (polyline
         (pts
-          (xy 14.224 -1.9812)
-          (xy 14.224 -7.5692)
+          (xy 14.605 -1.905)
+          (xy 14.605 -7.62)
         )
         (stroke (width 0.127) (type default))
         (fill (type none))
@@ -57,7 +57,7 @@
       (polyline
         (pts
           (xy 16.0528 -6.35)
-          (xy 14.224 -6.35)
+          (xy 14.605 -6.35)
         )
         (stroke (width 0.127) (type default))
         (fill (type none))
@@ -137,7 +137,7 @@
       (polyline
         (pts
           (xy 23.6728 -3.81)
-          (xy 25.8064 -3.81)
+          (xy 26.035 -3.81)
         )
         (stroke (width 0.127) (type default))
         (fill (type none))
@@ -145,7 +145,7 @@
       (polyline
         (pts
           (xy 24.2316 -6.35)
-          (xy 25.8064 -6.35)
+          (xy 26.035 -6.35)
         )
         (stroke (width 0.127) (type default))
         (fill (type none))
@@ -176,16 +176,16 @@
       )
       (polyline
         (pts
-          (xy 25.8064 -7.62)
-          (xy 25.8064 -1.9812)
+          (xy 26.035 -7.62)
+          (xy 26.035 -1.905)
         )
         (stroke (width 0.127) (type default))
         (fill (type none))
       )
       (polyline
         (pts
-          (xy 25.8064 -1.9812)
-          (xy 14.224 -1.9812)
+          (xy 26.035 -1.905)
+          (xy 14.605 -1.905)
         )
         (stroke (width 0.127) (type default))
         (fill (type none))
@@ -220,8 +220,8 @@
     (symbol "3570-1331-123_1_1"
       (polyline
         (pts
-          (xy 14.224 -7.62)
-          (xy 25.8064 -7.62)
+          (xy 14.605 -7.62)
+          (xy 26.035 -7.62)
         )
         (stroke (width 0.127) (type default))
         (fill (type none))
@@ -234,19 +234,19 @@
         (stroke (width 0) (type default))
         (fill (type none))
       )
-      (pin unspecified line (at 12.192 -3.81 0) (length 2)
+      (pin unspecified line (at 12.065 -3.81 0) (length 2.54)
         (name "1" (effects (font (size 0.5 0.5))))
         (number "1" (effects (font (size 0.5 0.5))))
       )
-      (pin unspecified line (at 12.192 -6.35 0) (length 2)
+      (pin unspecified line (at 12.065 -6.35 0) (length 2.54)
         (name "2" (effects (font (size 0.5 0.5))))
         (number "2" (effects (font (size 0.5 0.5))))
       )
-      (pin unspecified line (at 27.8384 -6.35 180) (length 2)
+      (pin unspecified line (at 28.575 -6.35 180) (length 2.54)
         (name "3" (effects (font (size 0.5 0.5))))
         (number "3" (effects (font (size 0.5 0.5))))
       )
-      (pin unspecified line (at 27.8384 -3.81 180) (length 2)
+      (pin unspecified line (at 28.575 -3.81 180) (length 2.54)
         (name "4" (effects (font (size 0.5 0.5))))
         (number "4" (effects (font (size 0.5 0.5))))
       )
