@@ -1,6 +1,10 @@
 from website import create_app
 from flask import send_from_directory, request
 
+ctrl_hardware_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'ctrl_hardware'))
+sys.path.append(ctrl_hardware_path)
+from shift_register import SRoutput
+
 import os, subprocess
 
 app = create_app()
@@ -20,19 +24,10 @@ def atualizar_shift_register():
     if parametro.startswith('0b'):
         parametro = parametro[2:]
 
-    # Convertendo a string binária para um número inteiro
-    valor_binario = int(parametro, 2)
-    
-     # Caminho completo para o shift_register.py
-    path_to_shift_register = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'ctrl_hardware', 'shift_register.py'))
+    # Chama a função SRoutput do shift_register.py passando o parâmetro binário
+    SRoutput(int(parametro,2)) #Converte o parâmetro binário para inteiro
 
-    ## Operações com o valor binário recebido
-    # Chama shift_register.py com subprocesso e passar o parâmetro
-    try:
-        subprocess.run(["python3", path_to_shift_register, parametro], check=True)
-        return f'Parâmetro binário {parametro} enviado para shift_register.py com sucesso!'
-    except subprocess.CalledProcessError as e:
-        return f'Erro ao chamar shift_register.py: {e}'
+    return f'Parâmetro binário {parametro} passado com sucesso!'
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True) #Defenido para executar em todos os ip's disponíveis pela rede
