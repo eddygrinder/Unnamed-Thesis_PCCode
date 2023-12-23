@@ -1,11 +1,21 @@
 from website import create_app
 from flask import send_from_directory, request
 
+<<<<<<< HEAD
 import os, sys, subprocess
+=======
+from gpiozero import OutputDevice
+
+import os, sys
+>>>>>>> 95b4c87f04bd85c23dd5ca10b277dbfe61a2c851
 
 ctrl_hardware_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'ctrl_hardware'))
 sys.path.append(ctrl_hardware_path)
 from shift_register import SRoutput
+<<<<<<< HEAD
+=======
+
+>>>>>>> 95b4c87f04bd85c23dd5ca10b277dbfe61a2c851
 
 app = create_app()
 
@@ -24,6 +34,10 @@ def atualizar_shift_register():
     if parametro.startswith('0b'):
         parametro = parametro[2:]
 
+<<<<<<< HEAD
+=======
+    OutputDevice.close
+>>>>>>> 95b4c87f04bd85c23dd5ca10b277dbfe61a2c851
     # Chama a função SRoutput do shift_register.py passando o parâmetro binário
     SRoutput(int(parametro,2)) #Converte o parâmetro binário para inteiro
 
