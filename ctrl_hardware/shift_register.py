@@ -1,12 +1,11 @@
 from gpiozero import OutputDevice
 
-import serial
 import time
 
 import warnings
-warnings.filterwarnings("ignore")
+#warnings.filterwarnings("ignore")
 
-SER = OutputDevice(5)         # GPIO 5 - SER/DS (serial data input, SPI data)
+SER = OutputDevice(5, initial_value=None)         # GPIO 5 - SER/DS (serial data input, SPI data)
 RCLK = OutputDevice(6)        # GPIO 6 - RCLK/STCP
 SRCLK = OutputDevice(13)      # GPIO 13 - SRCLK/SHCP (storage register clock pin, SPI clock)
 OE = OutputDevice(19)         # GPIO 19 - Enable/Disable do SR
@@ -21,7 +20,7 @@ SRCLR = OutputDevice(26)      # GPIO 26 - O registo de deslocamento � limpo (A
 
 # Inicializar a variavel correspondente a R1
 # Reles 1 e 2
-#checkshift = 0b0011
+# checkshift = 0b0011
 
 # Valor por defeito de espera nas operacoes do registo de deslocamento
 WaitTimeSR = 0.1
