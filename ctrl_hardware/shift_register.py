@@ -5,7 +5,7 @@ import time
 import warnings
 #warnings.filterwarnings("ignore")
 
-SER = OutputDevice(5, initial_value=None)         # GPIO 5 - SER/DS (serial data input, SPI data)
+SER = OutputDevice(5)         # GPIO 5 - SER/DS (serial data input, SPI data)
 RCLK = OutputDevice(6)        # GPIO 6 - RCLK/STCP
 SRCLK = OutputDevice(13)      # GPIO 13 - SRCLK/SHCP (storage register clock pin, SPI clock)
 OE = OutputDevice(19)         # GPIO 19 - Enable/Disable do SR
@@ -36,15 +36,17 @@ WaitTimeSR = 0.1
 #  X      X       X     +et       X   dados out
 ######################################################
 
-# Inicaializa o pino de clear dos registos a 1 - o clear � controlado e feito numa fun��o
-GPIO.output(SRCLR,1)
+# Limpa o registo de deslocamento
+SRCLR.on()
+time.sleep(WaitTimeSR)
+SRCLR.off()
 
 # Enable do SR - sa�das sempre activas
-GPIO.output(OE, 0)
+OE.off()
 
 # Fun��o que verifica e desloca os bits para armazenar no registo de deslocamento
 def SRoutput(checkshift):
-    for i in range(9):
+    for i in range(2):
         shift = checkshift & 1
         if shift == 1:
             print ("UM")
@@ -65,10 +67,11 @@ def SRoutput(checkshift):
 ######### Por ultimo � dado um impulso aos registos (RCLK/STCP) para obter os 8 bits na saida
 
 def WriteReg (WriteBit, WaitTimeSR):
-    SRCLR.off() #GPIO.output (SRCLK, 0)  # Clock - flanco POSITIVO
     SER.value = WriteBit #GPIO.output (SER,WriteBit) # Envia o bit para o registo
     time.sleep (WaitTimeSR) # Espera 100ms
     SRCLK.on() #GPIO.output(SRCLK,1)
+    time.sleep(WaitTimeSR)
+    SRCLR.off() #GPIO.output (SRCLK, 0)  # Clock - flanco POSITIVO
 
 # Funcao que limpa o registo
 def register_clear ():
@@ -77,7 +80,7 @@ def register_clear ():
     SRCLK.on() #GPIO.output(SRCLK, 1)
 
 # Armazenar o valor no registo
-def OutputReg():
+def OutputReg ():
     RCLK.off() #GPIO.output(RCLK, 0)
     time.sleep(WaitTimeSR)
     RCLK.on() #GPIO.output(RCLK, 1)
