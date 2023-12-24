@@ -22,7 +22,7 @@ def atualizar_shift_register():
 
     # Remove o prefixo '0b' se presente
     if parametro.startswith('0b'):
-        parametro = parametro[2:]
+        parametro = parametro[2:]     
 
     # Chama a função SRoutput do shift_register.py passando o parâmetro binário
     SRoutput(int(parametro,2)) #Converte o parâmetro binário para inteiro
