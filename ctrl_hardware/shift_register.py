@@ -5,7 +5,7 @@ import time
 import warnings
 #warnings.filterwarnings("ignore")
 
-SER = OutputDevice(5)        # GPIO 5 - SER/DS (serial data input, SPI data)
+SER = OutputDevice(5)      # GPIO 5 - SER/DS (serial data input, SPI data)
 RCLK = OutputDevice(6)        # GPIO 6 - RCLK/STCP
 SRCLK = OutputDevice(13)      # GPIO 13 - SRCLK/SHCP (storage register clock pin, SPI clock)
 OE = OutputDevice(19)         # GPIO 19 - Enable/Disable do SR
