@@ -30,4 +30,4 @@ def atualizar_shift_register():
     return f'Parâmetro binário {parametro} passado com sucesso!'
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True, use_reloader=False) #efenido para executar em todos os ip's disponíveis pela rede
+    app.run(host='0.0.0.0', port=5000, debug=False) #efenido para executar em todos os ip's disponíveis pela rede

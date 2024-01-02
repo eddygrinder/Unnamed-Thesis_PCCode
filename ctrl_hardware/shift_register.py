@@ -56,9 +56,9 @@ WaitTimeSR = 0.1
 ######################################################
 
 # Limpa o registo de deslocamento
-request.set_value(SRCLR, ON)
-time.sleep(WaitTimeSR)
 request.set_value(SRCLR, OFF)
+time.sleep(WaitTimeSR)
+request.set_value(SRCLR, ON)
 
 # Enable do SR - sa�das sempre activas
 request.set_value(OE, OFF)
@@ -66,16 +66,16 @@ request.set_value(OE, OFF)
 # Fun��o que verifica e desloca os bits para armazenar no registo de deslocamento
 def SRoutput(checkshift):
     print(checkshift)
-    for i in range(2):
+    for i in range(8):
         shift = checkshift & 1
         print(shift)
 
         if shift == 1:
             print ("UM")
-            WriteReg (shift, WaitTimeSR)
+            WriteReg (ON, WaitTimeSR)
         else:
             print ("ZERO")
-            WriteReg(shift, WaitTimeSR)
+            WriteReg(OFF, WaitTimeSR)
         checkshift = checkshift >> 1
     OutputReg()
 
@@ -89,7 +89,7 @@ def SRoutput(checkshift):
 ######### Por ultimo � dado um impulso aos registos (RCLK/STCP) para obter os 8 bits na saida
 
 def WriteReg (WriteBit, WaitTimeSR):
-    SER.value = WriteBit #GPIO.output (SER,WriteBit) # Envia o bit para o registo
+    request.set_value(SER, WriteBit) #GPIO.output (SER,WriteBit) # Envia o bit para o registo
     time.sleep (WaitTimeSR) # Espera 100ms
     request.set_value(SRCLK, ON) #GPIO.output(SRCLK,1)
     time.sleep(WaitTimeSR)
@@ -103,6 +103,8 @@ def register_clear ():
 
 # Armazenar o valor no registo
 def OutputReg ():
-    request.set_value(RCLK.OFF) #GPIO.output(RCLK, 0)
+    request.set_value(RCLK, OFF) #GPIO.output(RCLK, 0)
     time.sleep(WaitTimeSR)
-    request.set_value(SRCLK,ON) #GPIO.output(RCLK, 1)
+    request.set_value(RCLK, ON) #GPIO.output(RCLK, 1)
+    time.sleep(10)
+    #request.release()
