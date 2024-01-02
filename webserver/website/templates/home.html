@@ -61,7 +61,6 @@
   <h1><img src="../images/logo_20230106.png"></h1>
   <h2>VISIR</h2>
   <p></p>
-  <p>Escolha um dos três circuitos:</p>
   <div class="tab">
     <button class="tablinks" onclick="openchoice(event, 'Ohm')" id="defaultOpen">Lei de Ohm</button>
     <button class="tablinks" onclick="openchoice(event, 'MeiaOnda')">Retificador meia-onda</button>
@@ -72,8 +71,16 @@
     <h3>Escolha um dos três circuitos</h3>
     <p>Clique OK para seguir</p>
     <div>
-      <img src="../images/circuit_R1.png" width="30%" height="auto" alt="circuito R1" class="responsive" onclick="accionarReles('10011011')" style="cursor: pointer;" >
-      <img src="../images/circuit_R2.png" width="30%" height="auto" class="responsive">
+      <img 
+        src="../images/circuit_R1.png" 
+        width="30%" 
+        height="auto" 
+        alt="circuito R1" 
+        class="responsive" 
+        onclick="redirecionarPaginaEAcionar('10010101', 'main.html')" 
+        style="cursor: pointer;" >
+      
+        <img src="../images/circuit_R2.png" width="30%" height="auto" alt="circuito R1" class="responsive" onclick="accionarReles('01011011')" style="cursor: pointer;" >
       <img src="../images/circuit_R3.png" width="30%" height="auto" class="responsive">
     </div>
   </div>
@@ -106,7 +113,8 @@
     </script>
   
   <script>
-    function accionarReles(parametro) {
+    function accionarReles(parametro)
+      {
       // Transforma o parâmetro em uma string binária
       const parametroBinario = '0b' + parametro;
       fetch(`/atualizar_shift_register?parametro=${parametroBinario}`)
@@ -119,6 +127,12 @@
           console.error('Erro:', error);
         });
     }
+    
+    function redirecionarPaginaEAcionar(parametro, url) {
+      accionarReles(parametro); // Chama a função accionarReles com o parâmetro especificado
+      window.location.href = main.html; // Redireciona para a URL especificada
+    }
+      
   </script>
 
 {% endblock %}
