@@ -77,10 +77,18 @@
         height="auto" 
         alt="circuito R1" 
         class="responsive" 
-        onclick="redirecionarPaginaEAcionar('10010101', 'main.html')" 
+        onclick="redirecionarPaginaEAcionar('10010101', '/output')" 
         style="cursor: pointer;" >
       
-        <img src="../images/circuit_R2.png" width="30%" height="auto" alt="circuito R1" class="responsive" onclick="accionarReles('01011011')" style="cursor: pointer;" >
+        <img 
+          src="../images/circuit_R2.png" 
+          width="30%" 
+          height="auto" 
+          alt="circuito R1" 
+          class="responsive" 
+          onclick="accionarReles('01011011')" 
+          style="cursor: pointer;" >
+        
       <img src="../images/circuit_R3.png" width="30%" height="auto" class="responsive">
     </div>
   </div>
@@ -130,7 +138,7 @@
     
     function redirecionarPaginaEAcionar(parametro, url) {
       accionarReles(parametro); // Chama a função accionarReles com o parâmetro especificado
-      window.location.href = main.html; // Redireciona para a URL especificada
+      window.location.href = url; // Redireciona para a URL especificada
     }
       
   </script>

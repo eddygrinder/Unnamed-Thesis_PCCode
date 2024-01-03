@@ -10,6 +10,7 @@ views = Blueprint('views', __name__)
 @views.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
+    """
     if request.method == 'POST': 
         note = request.form.get('note')#Gets the note from the HTML 
 
@@ -20,7 +21,7 @@ def home():
             db.session.add(new_note) #adding the note to the database 
             db.session.commit()
             flash('Note added!', category='success')
-
+    """
     return render_template("home.html", user=current_user)
 
 

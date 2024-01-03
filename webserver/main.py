@@ -1,33 +1,75 @@
-from website import create_app
-from flask import send_from_directory, request
+from flask import Flask, render_template, url_for, redirect, send_from_directory, request
+from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField
+from wtforms.validators import InputRequired, Length, ValidationError
 
-import os, sys
+#app = create_app()
+app = Flask(__name__, template_folder='templates')
+app.config['SECRET_KEY'] = 'thisisasecretkey'
 
-ctrl_hardware_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'ctrl_hardware'))
-sys.path.append(ctrl_hardware_path)
-from shift_register import SRoutput
 
-app = create_app()
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
 
-@app.route("/images/<path:filename>")
-def serve_image(filename):
-    return send_from_directory("images", filename)
+class RegisterForm(FlaskForm):
+    username = StringField(validators=[
+                           InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Username"})
 
-# Definição dos bits a serem transmitidos
+    password = PasswordField(validators=[
+                             InputRequired(), Length(min=8, max=20)], render_kw={"placeholder": "Password"})
 
-#Rota para receber o parâmetro binário e usar no shift_register.py
-@app.route('/atualizar_shift_register', methods=['GET'])
-def atualizar_shift_register():
-    parametro = request.args.get('parametro')
+    submit = SubmitField('Register')
+    
+class LoginForm(FlaskForm):
+    username = StringField(validators=[
+                           InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Username"})
 
-    # Remove o prefixo '0b' se presente
-    if parametro.startswith('0b'):
-        parametro = parametro[2:]     
+    password = PasswordField(validators=[
+                             InputRequired(), Length(min=8, max=20)], render_kw={"placeholder": "Password"})
 
-    # Chama a função SRoutput do shift_register.py passando o parâmetro binário
-    SRoutput(int(parametro,2)) #Converte o parâmetro binário para inteiro
+    submit = SubmitField('Login')
 
-    return f'Parâmetro binário {parametro} passado com sucesso!'
+#@app.route("/images/<path:filename>")
+#def serve_image(filename):
+#    return send_from_directory("images", filename)
+
+#@app.route('/')
+#def index():
+#    return render_template('home.html')
+
+@app.route('/', methods=['GET', 'POST'])
+def output():
+    if request.method == 'POST':
+        return redirect(url_for('index'))
+
+    return render_template('output.html')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    return render_template('login.html', form=form)
+
+
+@app.route('/dashboard', methods=['GET', 'POST'])
+@login_required
+def dashboard():
+    return render_template('dashboard.html')
+
+
+@app.route('/logout', methods=['GET', 'POST'])
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegisterForm()
+    return render_template('register.html', form=form)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000) #efenido para executar em todos os ip's disponíveis pela rede
+    #app.run()
+    app.run(debug=True)
