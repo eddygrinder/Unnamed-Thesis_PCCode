@@ -4,8 +4,8 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import InputRequired, Length, ValidationError
 
-app = create_app()
-#app = Flask(__name__, template_folder='templates')
+#app = create_app()
+app = Flask(__name__)
 app.config['SECRET_KEY'] = 'thisisasecretkey'
 
 
@@ -39,9 +39,9 @@ class LoginForm(FlaskForm):
 def index():
     return render_template('home.html')
 
-@app.route('/output', methods=['GET', 'POST'])
+@app.route('/output')
 def output():
-    return render_template('output.html')
+    return 'Sh!t'
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -67,4 +67,4 @@ def register():
 
 if __name__ == '__main__':
     #app.run()
-    app.run()
+    app.run(debug=True)
