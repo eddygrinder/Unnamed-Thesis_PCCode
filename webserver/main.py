@@ -8,6 +8,7 @@ sys.path.append(ctrl_hardware_path)
 from shift_register import SRoutput
 
 app = create_app()
+app.config['SECRET_KEY'] = 'thisisasecretkey'
 
 @app.route("/images/<path:filename>")
 def serve_image(filename):
