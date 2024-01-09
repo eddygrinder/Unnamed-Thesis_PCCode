@@ -5,7 +5,7 @@ import os, sys
 
 ctrl_hardware_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'ctrl_hardware'))
 sys.path.append(ctrl_hardware_path)
-from shift_register import SRoutput
+#from shift_register import SRoutput
 
 app = create_app()
 app.config['SECRET_KEY'] = 'thisisasecretkey'
@@ -26,7 +26,7 @@ def atualizar_shift_register():
         parametro = parametro[2:]     
 
     # Chama a função SRoutput do shift_register.py passando o parâmetro binário
-    SRoutput(int(parametro,2)) #Converte o parâmetro binário para inteiro
+    #SRoutput(int(parametro,2)) #Converte o parâmetro binário para inteiro
     return f'Parâmetro binário {parametro} passado com sucesso!'
 
 if __name__ == '__main__':
