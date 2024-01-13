@@ -19,8 +19,7 @@ def serve_image(filename):
 #Rota para receber o parâmetro binário e usar no shift_register.py
 @app.route('/atualizar_shift_register', methods=['GET'])
 def atualizar_shift_register():
-    parametro = request.args.get('parametro')
-
+    parametro = request.arg.get('parametro','')
     # Remove o prefixo '0b' se presente
     if parametro.startswith('0b'):
         parametro = parametro[2:]     
