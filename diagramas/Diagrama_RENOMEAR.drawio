@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-01-16T16:49:22.386Z" agent="Mozilla/5.0 (X11; Linux aarch64; rv:121.0) Gecko/20100101 Firefox/121.0" etag="1YQItIvfBrStPlQEwYki" version="22.1.19" type="github">
+<mxfile host="app.diagrams.net" modified="2024-01-16T19:48:05.553Z" agent="Mozilla/5.0 (X11; Linux aarch64; rv:121.0) Gecko/20100101 Firefox/121.0" etag="8bMSrysDuOyZQX_2flpK" version="22.1.19" type="github">
   <diagram name="Page-1" id="74e2e168-ea6b-b213-b513-2b3c1d86103e">
     <mxGraphModel dx="956" dy="530" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="none" math="0" shadow="0">
       <root>
@@ -100,7 +100,7 @@
         <mxCell id="77e6c97f196da883-14" value="" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=8;align=center;" parent="77e6c97f196da883-4" vertex="1">
           <mxGeometry x="30" y="560" width="100" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="Stz53FhgeXE6KHRWkM9m-24" value="&lt;div align=&quot;left&quot;&gt;Parâmetros:&lt;/div&gt;&lt;div align=&quot;left&quot;&gt;&lt;ul&gt;&lt;li&gt;&lt;sub&gt;Corrente&lt;/sub&gt;&lt;/li&gt;&lt;li&gt;&lt;sub&gt;Tensão&lt;/sub&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="77e6c97f196da883-4">
+        <mxCell id="Stz53FhgeXE6KHRWkM9m-24" value="Parâmetros:&lt;br&gt;&lt;div&gt;&lt;sub&gt;- Corrente&lt;/sub&gt;&lt;sub&gt;&lt;br&gt;&lt;/sub&gt;&lt;/div&gt;&lt;div&gt;&lt;sub&gt;- Tensão&lt;/sub&gt;&lt;/div&gt;&lt;br&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="77e6c97f196da883-4">
           <mxGeometry x="60" y="189" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="77e6c97f196da883-5" value="Write_VB" style="swimlane;html=1;startSize=20;" parent="77e6c97f196da883-1" vertex="1">
