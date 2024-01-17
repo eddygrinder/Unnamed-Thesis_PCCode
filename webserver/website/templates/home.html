@@ -1,244 +1,155 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
 %}
-<style>
-  * {
-    box-sizing: border-box;
-  }
-  body {
-    font-family: "Lato", sans-serif;
-  }
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{{ url_for('static', filename='styles.css') }}"
+/>
+<link rel="icon" type="image/x-icon" href="../images/logo.ico" />
+<h1>
+  <img src="../images/logo.png" width="10%" />
+  <img src="../images/logo_20230106.png" />
+</h1>
 
-  /* Style the tab */
-  .tab {
-    float: left;
-    border: 1px solid #ccc;
-    background-color: #f1f1f1;
-    width: 20%;
-    height: 350px;
-  }
+<p></p>
+<div class="tab">
+  <button class="tablinks" onclick="openchoice(event, 'Ohm')" id="defaultOpen">
+    Lei de Ohm
+  </button>
+  <button class="tablinks" onclick="openchoice(event, 'MeiaOnda')">
+    Retificador meia-onda
+  </button>
+  <button class="tablinks" onclick="showImage('circuit_R3.png')">
+    Retificador Onda Completa
+  </button>
+</div>
 
-  /* Style the buttons inside the tab */
-  .tab button {
-    display: block;
-    background-color: inherit;
-    color: black;
-    padding: 22px 16px;
-    width: 100%;
-    border: none;
-    outline: none;
-    text-align: left;
-    cursor: pointer;
-    transition: 0.3s;
-    font-size: 15px;
-  }
-
-  /* Change background color of buttons on hover */
-  .tab button:hover {
-    background-color: #ddd;
-  }
-
-  /* Create an active/current "tab button" class */
-  .tab button.active {
-    background-color: #ccc;
-  }
-
-  /* Style the tab content */
-
-  .tabcontent {
-    float: left;
-    padding: 0px 12px;
-    border: 1px solid #ccc;
-    width: 80%;
-    border-left: none;
-    height: 350px;
-  }
-
-  .responsive {
-    max-width: 100%;
-    height: auto;
-  }
-
-  /* Dropdown menu */
-  .dropbtn {
-    background-color: #3498db;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-  }
-
-  .dropbtn:hover,
-  .dropbtn:focus {
-    background-color: #2980b9;
-  }
-
-  .dropdown {
-    position: relative;
-    display: inline-block;
-  }
-
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    overflow: auto;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-  }
-
-  .dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-  }
-
-  .dropdown a:hover {
-    background-color: #ddd;
-  }
-
-  .show {
-    display: block;
-  }
-</style>
-<body>
-  <h1><img src="../images/logo_20230106.png" /></h1>
-  <h2>VISIR</h2>
-  <p></p>
-  <div class="tab">
-    <button
-      class="tablinks"
-      onclick="openchoice(event, 'Ohm')"
-      id="defaultOpen"
-    >
-      Lei de Ohm
-    </button>
-    <button class="tablinks" onclick="openchoice(event, 'MeiaOnda')">
-      Retificador meia-onda
-    </button>
-    <button class="tablinks" onclick="showImage('circuit_R3.png')">
-      Retificador Onda Completa
-    </button>
-  </div>
-
-  <div id="Ohm" class="tabcontent">
-    <h3>Escolha um dos três circuitos</h3>
-    <p>Clique OK para seguir</p>
-    <div>
-      <img
-        src="../images/circuit_R1.png"
-        width="30%"
-        height="auto"
-        alt="circuito R1"
-        class="responsive"
-        onclick="redirecionarPaginaEAcionar('10010101', 'output')"
-        style="cursor: pointer"
-      />
-      <p></p>
+<div id="Ohm" class="tabcontent">
+  <h3>Escolha um dos três circuitos</h3>
+  <p>Clique OK para seguir</p>
+  <div>
+    <img
+      src="../images/circuit_R1.png"
+      width="40%"
+      height="auto"
+      alt="circuito R1"
+      class="responsive"
+      onclick="redirecionarPaginaEAcionar('10010101', 'output')"
+      style="cursor: pointer"
+    />
+    <p></p>
+    <!-- Font Awesome Icon Library -->
+    <!-- Butão de escolha da tensão Vcc-->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <div class="dropdown-container">
+      <button class="btn">V<sub>cc</sub></button>
       <div class="dropdown">
-        <button onclick="myFunction()" class="dropbtn">Vcc</button>
-        <div id="myDropdown" class="dropdown-content">
-          <a href="#home">Home</a>
-          <a href="#about">About</a>
-          <a href="#contact">Contact</a>
+        <button class="btn" style="border-left: 1px solid navy">
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content-vcc">
+          <a href="#">1V</a>
+          <a href="#">2V</a>
+          <a href="#">3V</a>
         </div>
       </div>
-      <img
-        src="../images/circuit_R2.png"
-        width="30%"
-        height="auto"
-        alt="circuito R1"
-        class="responsive"
-        onclick="accionarReles('01011011')"
-        style="cursor: pointer"
-      />
 
-      <img
-        src="../images/circuit_R3.png"
-        width="30%"
-        height="auto"
-        class="responsive"
-      />
+      <!-- Adicione um espaço entre os dropdowns -->
+      <div class="dropdown-space"></div>
+
+      <!-- Butão de escolha das resistências -->
+      <button class="btn">R</button>
+      <div class="dropdown">
+        <button class="btn" style="border-left: 1px solid navy">
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content-resistors">
+          <a href="#">1K</a>
+          <a href="#">2K</a>
+          <a href="#">3K</a>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <div id="MeiaOnda" class="tabcontent">
-    <h3>Escolha um dos três circuitos</h3>
-    <p>Clique OK para seguir</p>
-    <div>
-      <img
-        src="../images/circuit_R3.png"
-        width="30%"
-        height="auto"
-        alt="circuito R3"
-        class="responsive"
-      />
+    <div id="MeiaOnda" class="tabcontent">
+      <h3>Escolha um dos três circuitos</h3>
+      <p>Clique OK para seguir</p>
+      <div>
+        <img
+          src="../images/circuit_R3.png"
+          width="30%"
+          height="auto"
+          alt="circuito R3"
+          class="responsive"
+        />
+      </div>
     </div>
-  </div>
 
-  <script>
-    function openchoice(evt, choice) {
-      var i, tabcontent, tablinks;
-      tabcontent = document.getElementsByClassName("tabcontent");
-      for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
+    <script>
+      function openchoice(evt, choice) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(choice).style.display = "block";
+        evt.currentTarget.className += " active";
       }
-      tablinks = document.getElementsByClassName("tablinks");
-      for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
+
+      // Get the element with id="defaultOpen" and click on it
+      document.getElementById("defaultOpen").click();
+    </script>
+
+    <script>
+      function accionarReles(parametro) {
+        // Transforma o parâmetro em uma string binária
+        const parametroBinario = "0b" + parametro;
+        fetch(`/atualizar_shift_register?parametro=${parametroBinario}`)
+          .then((response) => {
+            // Lida com a resposta, se necessário
+            console.log("Requisição enviada!");
+          })
+          .catch((error) => {
+            // Lida com possíveis erros
+            console.error("Erro:", error);
+          });
       }
-      document.getElementById(choice).style.display = "block";
-      evt.currentTarget.className += " active";
-    }
 
-    // Get the element with id="defaultOpen" and click on it
-    document.getElementById("defaultOpen").click();
-  </script>
+      function redirecionarPaginaEAcionar(parametro, url) {
+        accionarReles(parametro); // Chama a função accionarReles com o parâmetro especificado
+        window.location.href = url; // Redireciona para a URL especificada
+      }
+    </script>
 
-  <script>
-    function accionarReles(parametro) {
-      // Transforma o parâmetro em uma string binária
-      const parametroBinario = "0b" + parametro;
-      fetch(`/atualizar_shift_register?parametro=${parametroBinario}`)
-        .then((response) => {
-          // Lida com a resposta, se necessário
-          console.log("Requisição enviada!");
-        })
-        .catch((error) => {
-          // Lida com possíveis erros
-          console.error("Erro:", error);
-        });
-    }
-
-    function redirecionarPaginaEAcionar(parametro, url) {
-      accionarReles(parametro); // Chama a função accionarReles com o parâmetro especificado
-      window.location.href = url; // Redireciona para a URL especificada
-    }
-  </script>
-
-  <script>
-    /* When the user clicks on the button, 
+    <script>
+      /* When the user clicks on the button, 
   toggle between hiding and showing the dropdown content */
-    function myFunction() {
-      document.getElementById("myDropdown").classList.toggle("show");
-    }
+      function myFunction() {
+        document.getElementById("myDropdown").classList.toggle("show");
+      }
 
-    // Close the dropdown if the user clicks outside of it
-    window.onclick = function (event) {
-      if (!event.target.matches(".dropbtn")) {
-        var dropdowns = document.getElementsByClassName("dropdown-content");
-        var i;
-        for (i = 0; i < dropdowns.length; i++) {
-          var openDropdown = dropdowns[i];
-          if (openDropdown.classList.contains("show")) {
-            openDropdown.classList.remove("show");
+      // Close the dropdown if the user clicks outside of it
+      window.onclick = function (event) {
+        if (!event.target.matches(".dropbtn")) {
+          var dropdowns = document.getElementsByClassName("dropdown-content");
+          var i;
+          for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains("show")) {
+              openDropdown.classList.remove("show");
+            }
           }
         }
-      }
-    };
-  </script>
+      };
+    </script>
 
-  {% endblock %}
-</body>
+    {% endblock %}
+  </div>
+</div>
