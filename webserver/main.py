@@ -1,9 +1,14 @@
 from website import create_app
 from flask import send_from_directory, request
 
-import os, subprocess
+import os, sys
+
+ctrl_hardware_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'ctrl_hardware'))
+sys.path.append(ctrl_hardware_path)
+#from shift_register import SRoutput
 
 app = create_app()
+app.config['SECRET_KEY'] = 'thisisasecretkey'
 
 @app.route("/images/<path:filename>")
 def serve_image(filename):
@@ -14,25 +19,14 @@ def serve_image(filename):
 #Rota para receber o parâmetro binário e usar no shift_register.py
 @app.route('/atualizar_shift_register', methods=['GET'])
 def atualizar_shift_register():
-    parametro = request.args.get('parametro')
-
+    parametro = request.arg.get('parametro','')
     # Remove o prefixo '0b' se presente
     if parametro.startswith('0b'):
-        parametro = parametro[2:]
+        parametro = parametro[2:]     
 
-    # Convertendo a string binária para um número inteiro
-    valor_binario = int(parametro, 2)
-    
-     # Caminho completo para o shift_register.py
-    path_to_shift_register = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'ctrl_hardware', 'shift_register.py'))
-
-    ## Operações com o valor binário recebido
-    # Chama shift_register.py com subprocesso e passar o parâmetro
-    try:
-        subprocess.run(["python3", path_to_shift_register, parametro], check=True)
-        return f'Parâmetro binário {parametro} enviado para shift_register.py com sucesso!'
-    except subprocess.CalledProcessError as e:
-        return f'Erro ao chamar shift_register.py: {e}'
+    # Chama a função SRoutput do shift_register.py passando o parâmetro binário
+    #SRoutput(int(parametro,2)) #Converte o parâmetro binário para inteiro
+    return f'Parâmetro binário {parametro} passado com sucesso!'
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True) #efenido para executar em todos os ip's disponíveis pela rede

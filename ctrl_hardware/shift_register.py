@@ -1,30 +1,45 @@
-import gpiozero as GPIO
+import gpiod
+from gpiod.line import Direction, Value
 
-#GPIO Mode (BOARD / BCM)
-GPIO.setmode(GPIO.BCM)
-
-import serial
 import time
 
 import warnings
-warnings.filterwarnings("ignore")
+#warnings.filterwarnings("ignore")
 
-SER = 5         # GPIO 5 - SER/DS (serial data input, SPI data)
-RCLK = 6        # GPIO 6 - RCLK/STCP
-SRCLK = 13      # GPIO 13 - SRCLK/SHCP (storage register clock pin, SPI clock)
-OE1 = 19         # GPIO 19 - Enable/Disable do SR
-SRCLR = 26      # GPIO 26 - O registo de deslocamento � limpo (ACTIVO BAIXO)
+SER = 5              # GPIO 5 - SER/DS (serial data input, SPI data)
+RCLK = 6             # GPIO 6 - RCLK/STCP
+SRCLK = 13           # GPIO 13 - SRCLK/SHCP (storage register clock pin, SPI clock)
+OE = 19              # GPIO 19 - Enable/Disable do SR
+SRCLR = 26           # GPIO 26 - O registo de deslocamento � limpo (ACTIVO BAIXO)
 
-# Setup dos pinos
-GPIO.setup(SER, GPIO.OUT)               
-GPIO.setup(RCLK, GPIO.OUT)                     
-GPIO.setup(SRCLK, GPIO.OUT)
-GPIO.setup(SRCLR, GPIO.OUT)
-GPIO.setup(OE, GPIO.OUT)
+OFF = Value.INACTIVE
+ON = Value.ACTIVE
 
-# Inicializar a variavel correspondente a R1
-# Reles 1 e 2
-#checkshift = 0b0011
+# Configuração para cada pino GPIO
+configs = {
+    SER: gpiod.LineSettings(
+        direction=Direction.OUTPUT, output_value=Value.ACTIVE
+    ),
+    RCLK: gpiod.LineSettings(
+        direction=Direction.OUTPUT, output_value=Value.ACTIVE
+    ),
+    SRCLK: gpiod.LineSettings(
+        direction=Direction.OUTPUT, output_value=Value.ACTIVE
+    ),
+    OE: gpiod.LineSettings(
+        direction=Direction.OUTPUT, output_value=Value.ACTIVE
+    ),
+    SRCLR: gpiod.LineSettings(
+        direction=Direction.OUTPUT, output_value=Value.ACTIVE
+    ),
+}
+
+# Solicitação das linhas GPIO
+request = gpiod.request_lines(
+    "/dev/gpiochip4",
+    consumer="controlo_GPIO's",
+    config=configs
+)
 
 # Valor por defeito de espera nas operacoes do registo de deslocamento
 WaitTimeSR = 0.1
@@ -40,22 +55,27 @@ WaitTimeSR = 0.1
 #  X      X       X     +et       X   dados out
 ######################################################
 
-# Inicaializa o pino de clear dos registos a 1 - o clear � controlado e feito numa fun��o
-GPIO.output(SRCLR,1)
+# Limpa o registo de deslocamento
+request.set_value(SRCLR, OFF)
+time.sleep(WaitTimeSR)
+request.set_value(SRCLR, ON)
 
 # Enable do SR - sa�das sempre activas
-GPIO.output(OE, 0)
+request.set_value(OE, OFF)
 
 # Fun��o que verifica e desloca os bits para armazenar no registo de deslocamento
 def SRoutput(checkshift):
-    for i in range(4):
+    print(checkshift)
+    for i in range(8):
         shift = checkshift & 1
+        print(shift)
+
         if shift == 1:
             print ("UM")
-            WriteReg (shift, WaitTimeSR)
+            WriteReg (ON, WaitTimeSR)
         else:
             print ("ZERO")
-            WriteReg(shift, WaitTimeSR)
+            WriteReg(OFF, WaitTimeSR)
         checkshift = checkshift >> 1
     OutputReg()
 
@@ -69,19 +89,22 @@ def SRoutput(checkshift):
 ######### Por ultimo � dado um impulso aos registos (RCLK/STCP) para obter os 8 bits na saida
 
 def WriteReg (WriteBit, WaitTimeSR):
-    GPIO.output (SRCLK, 0)  # Clock - flanco POSITIVO
-    GPIO.output (SER,WriteBit) # Envia o bit para o registo
+    request.set_value(SER, WriteBit) #GPIO.output (SER,WriteBit) # Envia o bit para o registo
     time.sleep (WaitTimeSR) # Espera 100ms
-    GPIO.output(SRCLK,1)
+    request.set_value(SRCLK, ON) #GPIO.output(SRCLK,1)
+    time.sleep(WaitTimeSR)
+    request.set_value(SRCLK, OFF) #GPIO.output (SRCLK, 0)  # Clock - flanco POSITIVO
 
 # Funcao que limpa o registo
 def register_clear ():
-    GPIO.output(SRCLK, 0)
+    request.set_value(SRCLK,OFF) #GPIO.output(SRCLK, 0)
     time.sleep(WaitTimeSR) # espera 100ms
-    GPIO.output(SRCLK, 1)
+    request.set_value(SRCLK,ON) #GPIO.output(SRCLK, 1)
 
 # Armazenar o valor no registo
-def OutputReg():
-    GPIO.output(RCLK, 0)
+def OutputReg ():
+    request.set_value(RCLK, OFF) #GPIO.output(RCLK, 0)
     time.sleep(WaitTimeSR)
-    GPIO.output(RCLK, 1)
+    request.set_value(RCLK, ON) #GPIO.output(RCLK, 1)
+    time.sleep(10)
+    #request.release()

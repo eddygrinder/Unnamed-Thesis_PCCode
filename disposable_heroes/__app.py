@@ -1,13 +1,11 @@
-from flask import Flask, render_template, url_for, redirect, request
+from flask import Flask, render_template, url_for, redirect, send_from_directory, request
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import InputRequired, Length, ValidationError
 
-import subprocess
-import os
-
-app = create_app()
+#app = create_app()
+app = Flask(__name__)
 app.config['SECRET_KEY'] = 'thisisasecretkey'
 
 
@@ -33,29 +31,27 @@ class LoginForm(FlaskForm):
 
     submit = SubmitField('Login')
 
-@app.route("/images/<path:filename>")
-def serve_image(filename):
-    return send_from_directory("images", filename)
+#@app.route("/images/<path:filename>")
+#def serve_image(filename):
+#    return send_from_directory("images", filename)
 
 @app.route('/')
 def index():
     return render_template('home.html')
 
-@app.route('/images/<path:filename>')
-def serve_image(filename):
-    return send_from_directory("images", filename)
+@app.route('/output')
+def output():
+    return 'Sh!t'
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     return render_template('login.html', form=form)
 
-
 @app.route('/dashboard', methods=['GET', 'POST'])
 @login_required
 def dashboard():
     return render_template('dashboard.html')
-
 
 @app.route('/logout', methods=['GET', 'POST'])
 @login_required
@@ -70,4 +66,5 @@ def register():
     return render_template('register.html', form=form)
 
 if __name__ == '__main__':
+    #app.run()
     app.run(debug=True)
