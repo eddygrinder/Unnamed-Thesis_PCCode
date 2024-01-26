@@ -56,6 +56,40 @@ body {
   height: 350px;
 }
 
+/* Create three unequal columns that floats next to each other */
+.column {
+  float: left;
+  padding: 0px 12px;
+  border: 1px solid #ccc;
+  border-left: none;
+  /* height: 300px; /* Should be removed. Only for demonstration */
+}
+
+.left,
+.right {
+  width: 25%;
+  border-left: none;
+}
+
+.middle {
+  width: 50%;
+  /*border-right: none;*/
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Clearfix para garantir que a altura seja consistente em caso de quebra de linha */
+.tabcontent:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
 .responsive {
   max-width: 100%;
   height: auto;
@@ -97,7 +131,8 @@ body {
 }
 
 /* style the items (options), including the selected item: */
-.select-items div,.select-selected {
+.select-items div,
+.select-selected {
   color: #ffffff;
   padding: 8px 16px;
   border: 1px solid transparent;
@@ -120,7 +155,8 @@ body {
   display: none;
 }
 
-.select-items div:hover, .same-as-selected {
+.select-items div:hover,
+.same-as-selected {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
@@ -131,7 +167,7 @@ body {
 a {
   text-decoration: none;
   display: inline-block;
-  padding: 8px 16px;
+  padding: 4px 12px;
 }
 
 a:hover {
@@ -145,8 +181,8 @@ a:hover {
 }
 
 .next {
-  background-color: #04AA6D;
-  color: white;
+  background-color: none;
+  color: #04aa6d;
 }
 
 .round {

@@ -12,65 +12,68 @@
 </h1>
 
 <p></p>
-<div class="tab">
-  <button class="tablinks" onclick="openchoice(event, 'Ohm')" id="defaultOpen">
-    Lei de Ohm
-  </button>
-  <button class="tablinks" onclick="openchoice(event, 'MeiaOnda')">
-    Retificador meia-onda
-  </button>
-  <button class="tablinks" onclick="showImage('circuit_R3.png')">
-    Retificador Onda Completa
-  </button>
-</div>
 
-<div id="Ohm" class="tabcontent">
-  <h3>Escolha um dos três circuitos</h3>
-  <p>Clique OK para seguir</p>
-  <div>
+<div class="row">
+  <div class="tab">
+    <button
+      class="tablinks"
+      onclick="openchoice(event, 'Ohm')"
+      id="defaultOpen"
+    >
+      Lei de Ohm
+    </button>
+    <button class="tablinks" onclick="openchoice(event, 'MeiaOnda')">
+      Retificador meia-onda
+    </button>
+    <button class="tablinks" onclick="showImage('circuit_R3.png')">
+      Retificador Onda Completa
+    </button>
+  </div>
+  <div class="column middle">
+    <h2>Escolha um dos três circuitos</h2>
+    <p>Clique OK para seguir</p>
     <img
       src="../images/circuit_R1.png"
-      width="40%"
+      width="70%"
       height="auto"
       alt="circuito R1"
       class="responsive"
       onclick="redirecionarPaginaEAcionar('10010101', 'output')"
       style="cursor: pointer"
     />
-  </div>
-  <!-- Surround the select box within a "custom-select" DIV element.
+    <!-- Surround the select box within a "custom-select" DIV element.
 Remember to set the width: -->
-  <div style="display: inline-block; width: 200px">
-    <select id="selectVcc">
-      <option value="0">Seleccionar V<sub>cc</sub>:</option>
-      <option value="1">1V</option>
-      <option value="2">2V</option>
-      <option value="3">3V</option>
-      <option value="4">4V</option>
-      <option value="5">5V</option>
-    </select>
+    <div style="display: inline-block; width: 200px">
+      <select id="selectVcc">
+        <option value="0">Seleccionar V<sub>cc</sub>:</option>
+        <option value="1">1V</option>
+        <option value="2">2V</option>
+        <option value="3">3V</option>
+        <option value="4">4V</option>
+        <option value="5">5V</option>
+      </select>
+    </div>
+    <div style="display: inline-block; width: 200px">
+      <select id="selectR">
+        <option value="0">Seleccionar R:</option>
+        <option value="1">1K&#937;</option>
+        <option value="2">2K&#937;</option>
+        <option value="3">3K&#937;</option>
+      </select>
+    </div>
+    <a href="#" class="next round" id="botaoChamarFuncao">OK &raquo; </a>
   </div>
-  <div style="display: inline-block; width: 200px">
-    <select id="selectR">
-      <option value="0">Seleccionar R:</option>
-      <option value="1">1K&#937;</option>
-      <option value="2">2K&#937;</option>
-      <option value="3">3K&#937;</option>
-    </select>
-  </div>
-  <a href="#" class="next" id="botaoChamarFuncao">OK &raquo; </a>
-</div>
-<div id="MeiaOnda" class="tabcontent">
-  <h3>Escolha um dos três circuitos</h3>
-  <p>Clique OK para seguir</p>
-  <div>
-    <img
-      src="../images/circuit_R3.png"
-      width="30%"
-      height="auto"
-      alt="circuito R3"
-      class="responsive"
-    />
+  <div class="column right">
+    <h2>Resultados</h2>
+    <p>
+      Medir Tensão
+      <a href="#" class="next round" id="botaoChamarFuncao"><b>&raquo;</b> </a>
+    </p>
+
+    <p>
+      Medir Corrente
+      <a href="#" class="next round" id="botaoChamarFuncao">&#8250; </a>
+    </p>
   </div>
 </div>
 
