@@ -29,7 +29,11 @@ from pyvirtualbench import PyVirtualBench, PyVirtualBenchException
 # This examples demonstrates how to make measurements using the Power
 # Supply (PS) on a VirtualBench.
 
-try:
+try:    
+    
+    def values_Vcc_R ():
+        pass
+        
     # Power Supply Configuration
     channel = "ps/+25V"
     voltage_level = 1.0

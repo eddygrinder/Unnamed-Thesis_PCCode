@@ -61,7 +61,7 @@ Remember to set the width: -->
         <option value="3">3K&#937;</option>
       </select>
     </div>
-    <a href="#" class="next round" id="botaoChamarFuncao">OK &raquo; </a>
+    <a href="#" class="next round" id="botaoOK">OK &raquo; </a>
   </div>
   <div class="column right">
     <h2>Resultados</h2>
@@ -77,10 +77,47 @@ Remember to set the width: -->
   </div>
 </div>
 
+<!----------------------------------------->
 <!-- Scripts zone -->
+<!----------------------------------------->
 
+<!-- Associar as funções aos eventos de cliques dos botões -->
+
+<!-- Função que passa os parâmetros quando o botão OK é clicado -->
 <script>
-  // Associar a função ao evento de clique do botão
+  document.getElementById("botaoOK").onclick = function (event) {
+    // Impedir o comportamento padrão do link (navegação)
+    event.preventDefault();
+
+    // Chamar a função
+    botaoOK_parametros();
+  };
+
+  function botaoOK_parametros() {
+    var valorVcc = document.getElementById("selectVcc").value;
+    var valorR = document.getElementById("selectR").value;
+
+    // Agora você tem os valores selecionados, pode fazer o que quiser com eles
+    console.log("Valor Vcc selecionado:", readVcc);
+    console.log("Valor R selecionado:", readR);
+
+    // Construção do URL com ambos os parâmetros
+    var url = `/control_virtual_bench?Vcc=${readVcc}&R=${readR}`;
+    // Crie uma solicitação GET usando fetch
+    fetch(url)
+      .then((response) => {
+        // Lida com a resposta, se necessário
+        console.log("Requisição enviada!");
+      })
+      .catch((error) => {
+        // Lida com possíveis erros
+        console.error("Erro:", error);
+      });
+  }
+</script>
+
+<!-- --------------------------------------- -->
+<script>
   document.getElementById("botaoChamarFuncao").onclick = function (event) {
     // Impedir o comportamento padrão do link (navegação)
     event.preventDefault();
@@ -102,6 +139,7 @@ Remember to set the width: -->
   }
 </script>
 
+<!-- Script que passa os parâmetros Vcc e R para o script python control_VB.py -->
 <script>
   function funcaoComDoisValores() {
     var valorVcc = document.getElementById("selectVcc").value;

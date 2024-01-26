@@ -5,7 +5,8 @@ import os, sys
 
 ctrl_hardware_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'ctrl_hardware'))
 sys.path.append(ctrl_hardware_path)
-#from shift_register import SRoutput
+from shift_register import SRoutput
+from controlVB import imported_Values
 
 app = create_app()
 app.config['SECRET_KEY'] = 'thisisasecretkey'
@@ -19,7 +20,7 @@ def serve_image(filename):
 #Rota para receber o parâmetro binário e usar no shift_register.py
 @app.route('/atualizar_shift_register', methods=['GET'])
 def atualizar_shift_register():
-    parametro = request.arg.get('parametro','')
+    parametro = request.args.get('parametro','')
     # Remove o prefixo '0b' se presente
     if parametro.startswith('0b'):
         parametro = parametro[2:]     
@@ -31,9 +32,11 @@ def atualizar_shift_register():
 # Rota para passar parâmetros para o script control_VB.py
 @app.route('/control_virtual_bench', methods=['GET'])
 def control_virtual_bench():
-    parametro = request.arg.get('parametro','')
+    Vcc = request.args.get('readVcc','')
+    R = request.args.get('readR','')
     # Chamar a função que estará definida no script control_VB e passar os dois parâmetros recebids
-    return f'Parâmetros {parametro} passado com sucesso'
+    Values_Vcc_R (Vcc, R)
+    return f'Parâmetros {Vcc, R} passados com sucesso'
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True) #efenido para executar em todos os ip's disponíveis pela rede
