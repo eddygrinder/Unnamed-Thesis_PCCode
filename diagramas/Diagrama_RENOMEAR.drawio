@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2024-01-30T18:12:19.330Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36" etag="AAyqW6ROU8RPQOuWc0b_" version="23.0.2" type="github">
+<mxfile host="app.diagrams.net" modified="2024-01-30T18:33:36.343Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36" etag="HiIb42_hC8o-WTI3YoHR" version="23.0.2" type="github">
   <diagram name="Page-1" id="74e2e168-ea6b-b213-b513-2b3c1d86103e">
-    <mxGraphModel dx="679" dy="288" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" background="none" math="0" shadow="0">
+    <mxGraphModel dx="659" dy="280" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -270,7 +270,7 @@
         <mxCell id="ros4OyzySftLP6ti_XXf-13" value="Activa Virtual Bench" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="ros4OyzySftLP6ti_XXf-6">
           <mxGeometry y="26" width="180" height="24" as="geometry" />
         </mxCell>
-        <mxCell id="ros4OyzySftLP6ti_XXf-8" value="R" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;html=1;" vertex="1" parent="ros4OyzySftLP6ti_XXf-6">
+        <mxCell id="ros4OyzySftLP6ti_XXf-8" value="R" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5,0,0,0],[1,0,0,0,-9],[1,0.5,0,0,0]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;html=1;" vertex="1" parent="ros4OyzySftLP6ti_XXf-6">
           <mxGeometry y="50" width="180" height="30" as="geometry" />
         </mxCell>
         <mxCell id="ros4OyzySftLP6ti_XXf-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="ros4OyzySftLP6ti_XXf-3" target="ros4OyzySftLP6ti_XXf-13">
@@ -282,27 +282,33 @@
         <mxCell id="ros4OyzySftLP6ti_XXf-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=-0.003;entryY=0.412;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="ros4OyzySftLP6ti_XXf-4" target="ros4OyzySftLP6ti_XXf-8">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="ros4OyzySftLP6ti_XXf-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ros4OyzySftLP6ti_XXf-8" target="ros4OyzySftLP6ti_XXf-20">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="1370" y="1245" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ros4OyzySftLP6ti_XXf-44" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1">
+        <mxCell id="ros4OyzySftLP6ti_XXf-44" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.999;exitY=0.749;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="ros4OyzySftLP6ti_XXf-8">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="470" y="1300" as="targetPoint" />
             <mxPoint x="1195" y="1450" as="sourcePoint" />
             <Array as="points">
-              <mxPoint x="1195" y="1470" />
+              <mxPoint x="1110" y="1343" />
+              <mxPoint x="1110" y="1470" />
               <mxPoint x="420" y="1470" />
               <mxPoint x="420" y="1300" />
             </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="ros4OyzySftLP6ti_XXf-19" value="shift_register.py" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;fillColor=#CC0000;" vertex="1" parent="1">
-          <mxGeometry x="1140" y="1400" width="140" height="50" as="geometry" />
+          <mxGeometry x="1150" y="1400" width="140" height="50" as="geometry" />
         </mxCell>
         <mxCell id="ros4OyzySftLP6ti_XXf-20" value="Activa relés" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="ros4OyzySftLP6ti_XXf-19">
           <mxGeometry y="26" width="140" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="ros4OyzySftLP6ti_XXf-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.999;exitY=0.391;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="ros4OyzySftLP6ti_XXf-19" source="ros4OyzySftLP6ti_XXf-8">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-36" y="-68" as="sourcePoint" />
+            <mxPoint y="40" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="-16" y="-68" />
+              <mxPoint x="-16" y="40" />
+            </Array>
+          </mxGeometry>
         </mxCell>
         <mxCell id="ros4OyzySftLP6ti_XXf-29" value="Vcc e R" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="470.5" y="1260" width="80" height="80" as="geometry" />
@@ -343,8 +349,11 @@
         <mxCell id="ros4OyzySftLP6ti_XXf-40" value="SIM" style="edgeLabel;resizable=0;html=1;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="1">
           <mxGeometry x="649.9989281242466" y="1380.9992378922532" as="geometry" />
         </mxCell>
-        <mxCell id="ros4OyzySftLP6ti_XXf-41" value="Primeiro o utilizador selecciona o valor de Vcc e a respectiva Resistência.&lt;br&gt;&lt;br&gt;Segundo, o utilizador selecciona a grandeza a medir.&lt;br&gt;&lt;br&gt;Após a activação dos relés&amp;nbsp;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="ros4OyzySftLP6ti_XXf-41" value="Primeiro o utilizador selecciona o valor de Vcc e a respectiva Resistência.&lt;br&gt;&lt;br&gt;Segundo, o utilizador selecciona a grandeza a medir.&lt;br&gt;&lt;br&gt;Após a activação dos relés, os valores são enviado para a página html&amp;nbsp;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="260" y="1190" width="150" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="ros4OyzySftLP6ti_XXf-45" value="Envia os valores lidos pelo Virtual Bench" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="730" y="1440" width="160" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
