@@ -1,12 +1,12 @@
+import os, sys
+ctrl_hardware_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'ctrl_hardware'))
+sys.path.append(ctrl_hardware_path)
+
+from controlVB import read_Vcc_R
 from website import create_app
 from flask import send_from_directory, request
 
-import os, sys
-
-ctrl_hardware_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'ctrl_hardware'))
-sys.path.append(ctrl_hardware_path)
 from shift_register import SRoutput
-from controlVB import imported_Values
 
 app = create_app()
 app.config['SECRET_KEY'] = 'thisisasecretkey'
@@ -29,14 +29,14 @@ def atualizar_shift_register():
     #SRoutput(int(parametro,2)) #Converte o parâmetro binário para inteiro
     return f'Parâmetro binário {parametro} passado com sucesso!'
 
-# Rota para passar parâmetros para o script control_VB.py
+# Rota para passar parâmetros para o script controlVB.py
 @app.route('/control_virtual_bench', methods=['GET'])
 def control_virtual_bench():
     Vcc = request.args.get('readVcc','')
-    R = request.args.get('readR','')
+    Resitence = request.args.get('readR','')
     # Chamar a função que estará definida no script control_VB e passar os dois parâmetros recebids
-    Values_Vcc_R (Vcc, R)
-    return f'Parâmetros {Vcc, R} passados com sucesso'
+    read_Vcc_R (Vcc, Resitence)
+    return f'Parâmetros {Vcc, Resitence} passados com sucesso'
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True) #efenido para executar em todos os ip's disponíveis pela rede
