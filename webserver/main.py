@@ -29,15 +29,6 @@ def atualizar_shift_register():
     #SRoutput(int(parametro,2)) #Converte o parâmetro binário para inteiro
     return f'Parâmetro binário {parametro} passado com sucesso!'
 
-# Rota para passar parâmetros para o script controlVB.py
-@app.route('/control_virtual_bench', methods=['GET'])
-def control_virtual_bench():
-    Vcc = request.args.get('Vcc','')
-    Resitence = request.args.get('R','')
-    #print(f'Valores recebidos - Vcc: {Vcc}, Resitence: {Resitence}')
-    # Chamar a função que estará definida no script control_VB e passar os dois parâmetros recebids
-    read_Vcc_R (Vcc, Resitence)
-    return f'Parâmetros {Vcc, Resitence} passados com sucesso'
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True) #efenido para executar em todos os ip's disponíveis pela rede

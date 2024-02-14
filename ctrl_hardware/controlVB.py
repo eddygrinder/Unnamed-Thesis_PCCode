@@ -41,9 +41,10 @@ virtualbench = PyVirtualBench('VB8012-30A210F')
 
 # This examples demonstrates how to make measurements using the Power
     
-def read_Vcc_R (Vcc, Resitence):
+def read_Vcc_R (Vcc, Resistence):
     try:
         Vcc = int(Vcc) # É passado o parâmetro em forma de string mas é necessária a conversão para int
+        Resistence = int(Resistence)
         # Power Supply Configuration
         channel = "ps/+25V"
         voltage_level = Vcc
@@ -57,9 +58,11 @@ def read_Vcc_R (Vcc, Resitence):
         dmm = virtualbench.acquire_digital_multimeter();
         dmm.configure_measurement(DmmFunction.DC_VOLTS, True, 10.0)
 
-        print("Measurement: %f V" % (dmm.read()))
         measurement_result = dmm.read()
-
+        print("Measurement: %f V" % (measurement_result))
+        print("Measurement: %f KOhm" % (Resistence))
+        
+        """
         # Construa a URL usando o caminho para o arquivo HTML
         html_path = os.path.join(ctrl_hardware_path, 'website/webserver/home.html')
         url = f'file://{html_path}?measurement_value={measurement_result}'
@@ -67,7 +70,7 @@ def read_Vcc_R (Vcc, Resitence):
         # Faça a solicitação GET para a rota home
         resposta = requests.get(url)
         print(resposta.text)
-
+        """
         dmm.release()
         ps.release()
 
