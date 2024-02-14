@@ -24,44 +24,55 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-import os, sys
-from pyvirtualbench import PyVirtualBench, PyVirtualBenchException
+import os, sys, requests
+from pyvirtualbench import PyVirtualBench, PyVirtualBenchException, DmmFunction
+
+# Caminho para o diretório ctrl_hardware
 ctrl_hardware_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'ctrl_hardware'))
+# Adiciona o diretório ao sys.path
 sys.path.append(ctrl_hardware_path)
 
-from shift_register import SRoutput
+# You will probably need to replace "myVirtualBench" with the name of your device.
+# By default, the device name is the model number and serial number separated by a hyphen; e.g., "VB8012-309738A".
+# You can see the device's name in the VirtualBench Application under File->About
+virtualbench = PyVirtualBench('VB8012-30A210F')
+
+#from shift_register import SRoutput
 
 # This examples demonstrates how to make measurements using the Power
-# Supply (PS) on a VirtualBench.
     
 def read_Vcc_R (Vcc, Resitence):
-    # Power Supply Configuration
-    channel = "ps/+25V"
-    voltage_level = Vcc
-    current_limit = 0.5
-    
-    try:  
-        # You will probably need to replace "myVirtualBench" with the name of your device.
-        # By default, the device name is the model number and serial number separated by a hyphen; e.g., "VB8012-309738A".
-        # You can see the device's name in the VirtualBench Application under File->About
-        virtualbench = PyVirtualBench('VB8012-30A210F')
+    try:
+        Vcc = int(Vcc) # É passado o parâmetro em forma de string mas é necessária a conversão para int
+        # Power Supply Configuration
+        channel = "ps/+25V"
+        voltage_level = Vcc
+        current_limit = 0.5
+
         ps = virtualbench.acquire_power_supply()
 
         ps.configure_voltage_output(channel, voltage_level, current_limit)
         ps.enable_all_outputs(True)
-    
-        """
-        EXEMPLO: Realiza 10 leituras - pretende-se só uma leitura
-        for i in range(10):
-            voltage_measurement, current_measurement, ps_state = ps.read_output(channel)
-            print("Measurement [%d]: %f V\t%f A\t(%s)" % (i, voltage_measurement, current_measurement, str(ps_state)))
-        """
+
+        dmm = virtualbench.acquire_digital_multimeter();
+        dmm.configure_measurement(DmmFunction.DC_VOLTS, True, 10.0)
+
+        print("Measurement: %f V" % (dmm.read()))
+        measurement_result = dmm.read()
+
+        # Construa a URL usando o caminho para o arquivo HTML
+        html_path = os.path.join(ctrl_hardware_path, 'website/webserver/home.html')
+        url = f'file://{html_path}?measurement_value={measurement_result}'
+
+        # Faça a solicitação GET para a rota home
+        resposta = requests.get(url)
+        print(resposta.text)
+
+        dmm.release()
+        ps.release()
+
+        # Construa a URL com o valor da medição
         
-        # Realiza UMA medição
-        voltage_measurement, current_measurement, ps_state = ps.read_output(channel)
-        print("Measurement: %f V\t%f A\t(%s)" % (voltage_measurement, current_measurement, str(ps_state)))
-        
-        ps.release()    
     except PyVirtualBenchException as e:
         print("Error/Warning %d occurred\n%s" % (e.status, e))
     finally:

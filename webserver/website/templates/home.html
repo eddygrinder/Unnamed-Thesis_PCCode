@@ -68,6 +68,7 @@ Remember to set the width: -->
     <p>
       Medir Tensão
       <a href="#" class="next round" id="botaoChamarFuncao"><b>&raquo;</b> </a>
+      <div id="resultadoMedicao">Medição de Tensão: {{ measurement_value }} V</div>
     </p>
 
     <p>
@@ -94,8 +95,8 @@ Remember to set the width: -->
   };
 
   function botaoOK_parametros() {
-    var valorVcc = document.getElementById("selectVcc").value;
-    var valorR = document.getElementById("selectR").value;
+    var readVcc = document.getElementById("selectVcc").value;
+    var readR = document.getElementById("selectR").value;
 
     // Agora você tem os valores selecionados, pode fazer o que quiser com eles
     console.log("Valor Vcc selecionado:", readVcc);

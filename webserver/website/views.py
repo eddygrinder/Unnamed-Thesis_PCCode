@@ -10,19 +10,16 @@ views = Blueprint('views', __name__)
 @views.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
-    """
-    if request.method == 'POST': 
-        note = request.form.get('note')#Gets the note from the HTML 
+   try:
+        # Tente obter o valor da medição a partir dos parâmetros da solicitação
+        measurement_value = request.args.get('measurement_value', None)
+        measurement_value = float(measurement_value) if measurement_value is not None else None
 
-        if len(note) < 1:
-            flash('Note is too short!', category='error') 
-        else:
-            new_note = Note(data=note, user_id=current_user.id)  #providing the schema for the note 
-            db.session.add(new_note) #adding the note to the database 
-            db.session.commit()
-            flash('Note added!', category='success')
-    """
-    return render_template("home.html", user=current_user)
+        # Renderize o template 'home.html' com o valor da medição
+        return render_template('home.html', user=current_user, measurement_result=measurement_value)
+   except Exception as e:
+        # Lidar com possíveis erros e mostrar uma mensagem de erro
+        return render_template("home.html", user=current_user, measurement_error=str(e))
 
 
 @views.route('/delete-note', methods=['POST'])

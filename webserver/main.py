@@ -6,7 +6,7 @@ from controlVB import read_Vcc_R
 from website import create_app
 from flask import send_from_directory, request
 
-from shift_register import SRoutput
+#from shift_register import SRoutput
 
 app = create_app()
 app.config['SECRET_KEY'] = 'thisisasecretkey'
@@ -32,8 +32,9 @@ def atualizar_shift_register():
 # Rota para passar parâmetros para o script controlVB.py
 @app.route('/control_virtual_bench', methods=['GET'])
 def control_virtual_bench():
-    Vcc = request.args.get('readVcc','')
-    Resitence = request.args.get('readR','')
+    Vcc = request.args.get('Vcc','')
+    Resitence = request.args.get('R','')
+    #print(f'Valores recebidos - Vcc: {Vcc}, Resitence: {Resitence}')
     # Chamar a função que estará definida no script control_VB e passar os dois parâmetros recebids
     read_Vcc_R (Vcc, Resitence)
     return f'Parâmetros {Vcc, Resitence} passados com sucesso'
