@@ -25,7 +25,7 @@
 # THE SOFTWARE.
 
 import os, sys, requests
-#from pyvirtualbench import PyVirtualBench, PyVirtualBenchException, DmmFunction
+from pyvirtualbench import PyVirtualBench, PyVirtualBenchException, DmmFunction
 
 # Caminho para o diretório ctrl_hardware
 ctrl_hardware_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'ctrl_hardware'))
@@ -35,7 +35,7 @@ sys.path.append(ctrl_hardware_path)
 # You will probably need to replace "myVirtualBench" with the name of your device.
 # By default, the device name is the model number and serial number separated by a hyphen; e.g., "VB8012-309738A".
 # You can see the device's name in the VirtualBench Application under File->About
-#virtualbench = PyVirtualBench('VB8012-30A210F')
+virtualbench = PyVirtualBench('VB8012-30A210F')
 
 #from shift_register import SRoutput
 
@@ -49,17 +49,17 @@ def read_Vcc_R (Vcc, Resistence):
     voltage_level = Vcc
     current_limit = 0.5
 
-    #ps = virtualbench.acquire_power_supply()
+    ps = virtualbench.acquire_power_supply()
 
-    #ps.configure_voltage_output(channel, voltage_level, current_limit)
-    #ps.enable_all_outputs(True)
+    ps.configure_voltage_output(channel, voltage_level, current_limit)
+    ps.enable_all_outputs(True)
 
-    #dmm = virtualbench.acquire_digital_multimeter();
-    #dmm.configure_measurement(DmmFunction.DC_VOLTS, True, 10.0)
+    dmm = virtualbench.acquire_digital_multimeter();
+    dmm.configure_measurement(DmmFunction.DC_VOLTS, True, 10.0)
 
-    measurement_result = 1.0089654
-    print("Measurement: %f V" % (measurement_result))
-    print("Measurement: %f KOhm" % (Resistence))
+    measurement_result = dmm.read()
+    print("MeasurementV: %f V" % (measurement_result))
+    print("MeasurementR: %f KOhm" % (Resistence))
         # Atribui o valor à variável, garantindo o tipo correto
     #measurement_result = float(measurement_result)
     
@@ -72,8 +72,8 @@ def read_Vcc_R (Vcc, Resistence):
     resposta = requests.get(url)
     print(resposta.text)
     """
-    #dmm.release()
-    #ps.release()
+    dmm.release()
+    ps.release()
 
     # Construa a URL com o valor da medição
     
