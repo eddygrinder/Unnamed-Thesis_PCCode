@@ -7,48 +7,50 @@ from controlVB import read_Vcc_R
 
 views = Blueprint('views', __name__)
 
-# Esta rota será acessada através de AJAX para obter o valor atualizado da medição
-@views.route('/obter-valor-da-medicao')
-def obter_valor_da_medicao():
-    # Aqui você pode definir o valor da medição que deseja passar para o HTML
-    measurement_results = "valor_da_medicao"
-    return jsonify({'medicao': measurement_results})
+measurement_result = None
 
 @views.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
-    try:
-        if request.method == 'GET':
-        # Renderiza o HTML inicial
-            return render_template("your_template.html")
-        elif request.method == 'POST':
-            Vcc = request.args.get('Vcc', 0, int)
-            Resistence = request.args.get('R',0, int)
-            print(f'Valores Recebidos - Vcc: {Vcc}, Resitence: {Resistence}')
-            # Chamar a função que estará definida no script control_VB e passar os dois parâmetros recebids
-            # Atenção Vcc string e Resistence string
-            #Vcc_float = float(Vcc) # Atribui o valor à variável, garantindo o tipo correto
-            # Verificar se ambos os valores são diferentes de zero
-            if Vcc != 0 and Resistence != 0:
-            # Chamar a função apenas se os valores não forem zero
-                measurement_results = read_Vcc_R(Vcc, Resistence)
-                print(f'MeAsure: {measurement_results}')
-            else:
-                #  Se um ou ambos os valores forem zero, defina measurement_results como zero
-                measurement_results = 0
-
-            # Renderize o template 'home.html' com os resultados da medição
-            return render_template("home.html", user=current_user, measurement_result=measurement_results)
-    except Exception as e:
-        # Lidar com possíveis erros e mostrar uma mensagem de erro
-        measurement_error = str(e)
-        return render_template("home.html", user=current_user, measurement_error=measurement_error)
+    return render_template("home.html", user=current_user)
 
 #########################################################
 # Rota para passar parâmetros para o script controlVB.py
 # Só passa os parâmetros de escolha    
 #########################################################
 
+def measure_VirtualBench():
+    Vcc = request.args.get('Vcc', 0, int)
+    Resistence = request.args.get('R',0, int)
+    print(f'Valores Recebidos - Vcc: {Vcc}, Resitence: {Resistence}')
+    # Chamar a função que estará definida no script control_VB e passar os dois parâmetros recebids
+    # Atenção Vcc string e Resistence string
+    #Vcc_float = float(Vcc) # Atribui o valor à variável, garantindo o tipo correto
+    
+    measurement_results = read_Vcc_R(Vcc, Resistence)
+    print(f'MeAsure: {measurement_results}')
+    
+    measurement_results = str(measurement_results)
+    # Renderize o template 'home.html' com os resultados da medição
+    return measurement_results
+
+# Rota para controlar e obter o resultado da medição
+@views.route('/ctrl_VirtualBench', methods=['GET', 'POST'])
+@login_required
+def ctrl_VirtualBench():
+    global measurement_result
+    measurement_result = measure_VirtualBench()
+    print(f'MeAsure: {measurement_result}')
+
+    return measurement_result
+
+    # Rota para controlar o envio para HTML
+@views.route('/send_measurement', methods=['GET', 'POST'])
+@login_required
+def send_measurement():
+    global measurement_result
+    print(f'MeAsure: {measurement_result}')
+    return jsonify(measurement_result=measurement_result)
 
 @views.route('/delete-note', methods=['POST'])
 def delete_note():  
