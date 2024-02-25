@@ -31,9 +31,8 @@ def ctrl_VirtualBench():
     measurement_results = read_Vcc_R(Vcc, Resistence)
     print(f'MeAsure: {measurement_results}')
 
-    return jsonify({'measurement_result': measurement_results})
+    return render_template("home.html", user=current_user, measurement_result=measurement_results)
 
-"""
 @views.route('/delete-note', methods=['POST'])
 def delete_note():  
     note = json.loads(request.data) # this function expects a JSON from the INDEX.js file 
@@ -46,7 +45,7 @@ def delete_note():
 
     return jsonify({})
 
-
+"""
  try:
         Vcc = request.args.get('Vcc','')
         Resistence = request.args.get('R','')

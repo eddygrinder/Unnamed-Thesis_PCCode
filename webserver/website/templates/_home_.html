@@ -24,48 +24,27 @@
       </select>
     </div>
     <a href="#" class="next round" id="botaoOK">OK &raquo; </a>
+    <p id="resultado-medicao"></p>
   </div>
 
-
-  <form method="POST" action="/">
-    <input type="submit" value="OK">
-</form>
-<div id="resultado-variavel">{{ measurement_result }}</div>
-
-
 <script>
-  document.getElementById("botaoOK").onclick = function (event) {
-    // Impedir o comportamento padrão do link (navegação)
-    event.preventDefault();
+  document.getElementById("botaoOK").addEventListener("click", function() {
+    // Obter valores dos selects
+    const Vcc = document.getElementById("selectVcc").value;
+    const Resistence = document.getElementById("selectR").value;
 
-    // Chamar a função
-    botaoOK_parametros();
-  };
-
-  function botaoOK_parametros() {
-    var readVcc = document.getElementById("selectVcc").value;
-    var readR = document.getElementById("selectR").value;
-
-    // Agora você tem os valores selecionados, pode fazer o que quiser com eles
-    console.log("Valor Vcc selecionado:", readVcc);
-    console.log("Valor R selecionado:", readR);
-
-    // Construção do URL com ambos os parâmetros
-    var url = `/ctrl_VirtualBench?Vcc=${readVcc}&R=${readR}`;
-    // Crie uma solicitação GET usando fetch
-    fetch(url)
-      .then((response) => {
-        // Lida com a resposta, se necessário
-        console.log("Requisição enviada!");
-      })
-      .catch((error) => {
-        // Lida com possíveis erros
-        console.error("Erro:", error);
+    // Enviar requisição AJAX para a rota /ctrl_VirtualBench
+    fetch("/ctrl_VirtualBench?Vcc=" + Vcc + "&R=" + Resistence)
+      .then(response => response.json())
+      .then(data => {
+        // Acessar a variável measurement_results
+        console.log(data.measurement_result);
+        document.getElementById("resultado-medicao").innerHTML = data.measurement_result;
       });
-  }
+  });
 </script>
 
-<!-- --------------------------------------- -->
+<!-- --------------------------------------- 
 <script>
   document.getElementById("botaoChamarFuncao").onclick = function (event) {
     // Impedir o comportamento padrão do link (navegação)
@@ -96,7 +75,7 @@
         console.error("Erro:", error);
       });
   }
-</script>
+</script> -->
 
 <script>
   function openchoice(evt, choice) {

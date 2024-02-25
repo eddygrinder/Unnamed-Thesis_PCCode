@@ -61,15 +61,11 @@ Remember to set the width: -->
         <option value="3">3</option>
       </select>
     </div>
-    <a href="#" class="next round" id="botaoOK">OK &raquo; </a>
+    <a href="#" class="next round" id="botaoOK">OKTensão &raquo; </a>
   </div>
   <div class="column right">
-    <a href="#" class="next round" onclick="getMeasurementResult()"
-      >Medir Tensão<b>&raquo;</b></a
-    >
-    <div id="resultadoMedicao">
-      Medição de Tensão:
-      <span id="valorMedicao">{{ measurement_error }}</span>
+  <b>Medir Tensão</b>
+      <p id="resultado-medicao"></p>
     </div>
 
     <!----------------------------------------->
@@ -77,21 +73,22 @@ Remember to set the width: -->
     <!----------------------------------------->
 
     <script>
-      function getMeasurementResult() {
-        // Realizar uma solicitação AJAX para o servidor Flask
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function () {
-          if (xhr.readyState == 4 && xhr.status == 200) {
-            var measurement_result = parseFloat(xhr.responseText);
-            console.log("Resultado da medição:", measurement_result);
-            // Faça o que quiser com o resultado da medição aqui
-          }
-        };
-        xhr.open("GET", "/send_measurement", true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.send();
-      }
+      document.getElementById("botaoOK").addEventListener("click", function() {
+        // Obter valores dos selects
+        const Vcc = document.getElementById("selectVcc").value;
+        const Resistence = document.getElementById("selectR").value;
+    
+        // Enviar requisição AJAX para a rota /ctrl_VirtualBench
+        fetch("/ctrl_VirtualBench?Vcc=" + Vcc + "&R=" + Resistence)
+          .then(response => response.json())
+          .then(data => {
+            // Acessar a variável measurement_results
+            console.log(data.measurement_result);
+            document.getElementById("resultado-medicao").innerHTML = data.measurement_result;
+          });
+      });
     </script>
+    
     <script>
       function mostrarMedicao(valorMedicao) {
         console.log("Botão clicado!"); // Adicione este console.log() para verificar se a função está sendo chamada
