@@ -24,7 +24,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-import random
+import random, socket
 
 import os, sys, requests
 
@@ -36,7 +36,10 @@ sys.path.append(ctrl_hardware_path)
 #from shift_register import SRoutput
 
 # This examples demonstrates how to make measurements using the Power
-    
+
+#Parâmetros resistências
+string_R1 = "111011"
+
 def read_Vcc_R (Vcc, Resistence):
     Vcc = int(Vcc) # É passado o parâmetro em forma de string mas é necessária a conversão para int
     Resistence = int(Resistence)
@@ -47,5 +50,22 @@ def read_Vcc_R (Vcc, Resistence):
     print("Measurement: %f V" % (Vcc))
     print("Measurement: %f V" % (measurement_result))
     print("Measurement: %f KOhm" % (Resistence))
-  
+    
+    send_Socket(string_R1)
+
     return measurement_result
+
+def send_Socket(stringValue):
+        # Endereço IP e porta do Raspberry Pi
+    HOST = '192.168.1.75'  # Substitua pelo endereço IP do Raspberry Pi
+    PORT = 12345  # Porta de escuta no Raspberry Pi
+
+    # Criar um socket TCP/IP
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        # Conectar-se ao servidor (Raspberry Pi)
+        s.connect((HOST, PORT))
+        
+        # Enviar a mensagem
+        s.sendall(stringValue.encode())
+        
+        print("Mensagem enviada com sucesso.")
