@@ -18,9 +18,9 @@ def home():
 #########################################################
 
 # Rota para controlar e obter o resultado da medição
-@views.route('/ctrl_VirtualBench', methods=['GET', 'POST'])
+@views.route('/config_VirtualBench', methods=['GET', 'POST'])
 @login_required
-def ctrl_VirtualBench():
+def config_VirtualBench():
     Vcc = request.args.get('Vcc', 0, int)
     Resistence = request.args.get('R',0, int)
     print(f'Valores Recebidos - Vcc: {Vcc}, Resitence: {Resistence}')

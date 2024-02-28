@@ -68,6 +68,13 @@ Remember to set the width: -->
       <p id="resultado-medicao"></p>
     </div>
 
+    <a href="#" class="next round" id="botaoOK">OKTensão &raquo; </a>
+  </div>
+  <div class="column right">
+  <b>Medir Tensão</b>
+      <p id="resultado-medicao"></p>
+    </div>
+
     <!----------------------------------------->
     <!-- Scripts zone -->
     <!----------------------------------------->
@@ -79,7 +86,7 @@ Remember to set the width: -->
         const Resistence = document.getElementById("selectR").value;
     
         // Enviar requisição AJAX para a rota /ctrl_VirtualBench
-        fetch("/ctrl_VirtualBench?Vcc=" + Vcc + "&R=" + Resistence)
+        fetch("/config_VirtualBench?Vcc=" + Vcc + "&R=" + Resistence)
           .then(response => response.json())
           .then(data => {
             // Acessar a variável measurement_results
@@ -88,91 +95,6 @@ Remember to set the width: -->
           });
       });
     </script>
-    
-    <script>
-      function mostrarMedicao(valorMedicao) {
-        console.log("Botão clicado!"); // Adicione este console.log() para verificar se a função está sendo chamada
-        console.log("Valor da variável: ", valorMedicao);
-
-        // Mostrar o resultado da medição alterando a visibilidade da div
-        // Exibe o valor da medição na div resultadoMedicao
-        var divResultado = document.getElementById("resultadoMedicao");
-        var spanValorMedicao = document.getElementById("valorMedicao");
-
-        if (divResultado.style.display === "none") {
-          divResultado.style.display = "block";
-          spanValorMedicao.textContent = valorMedicao; // Atualiza o conteúdo do span com o valor da medição
-        } else {
-          divResultado.style.display = "none";
-        }
-        // Imprimir o valor da variável
-      }
-    </script>
-
-    <script>
-      document.getElementById("botaoOK").onclick = function (event) {
-        // Impedir o comportamento padrão do link (navegação)
-        event.preventDefault();
-
-        // Chamar a função
-        botaoOK_parametros();
-      };
-
-      function botaoOK_parametros() {
-        var readVcc = document.getElementById("selectVcc").value;
-        var readR = document.getElementById("selectR").value;
-
-        // Agora você tem os valores selecionados, pode fazer o que quiser com eles
-        console.log("Valor Vcc selecionado:", readVcc);
-        console.log("Valor R selecionado:", readR);
-
-        // Construção do URL com ambos os parâmetros
-        var url = `/ctrl_VirtualBench?Vcc=${readVcc}&R=${readR}`;
-        // Crie uma solicitação GET usando fetch
-        fetch(url)
-          .then((response) => {
-            // Lida com a resposta, se necessário
-            console.log("Requisição enviada!");
-          })
-          .catch((error) => {
-            // Lida com possíveis erros
-            console.error("Erro:", error);
-          });
-      }
-    </script>
-
-    <!-- --------------------------------------- 
-    <script>
-      document.getElementById("botaoChamarFuncao").onclick = function (event) {
-        // Impedir o comportamento padrão do link (navegação)
-        event.preventDefault();
-
-        // Chamar a função
-        funcaoComDoisValores();
-      };
-
-      function funcaoComDoisValores() {
-        var valorVcc = document.getElementById("selectVcc").value;
-        var valorR = document.getElementById("selectR").value;
-
-        // Agora você tem os valores selecionados, pode fazer o que quiser com eles
-        console.log("Valor Vcc selecionado:", valorVcc);
-        console.log("Valor R selecionado:", valorR);
-
-        // Construção do URL com ambos os parâmetros
-        var url = `/ctrl_VirtualBench?parametro1=${valorVcc}&parametro2=${valorR}`;
-        // Crie uma solicitação GET usando fetch
-        fetch(url)
-          .then((response) => {
-            // Lida com a resposta, se necessário
-            console.log("Requisição enviada!");
-          })
-          .catch((error) => {
-            // Lida com possíveis erros
-            console.error("Erro:", error);
-          });
-      }
-    </script> -->
 
     <script>
       function openchoice(evt, choice) {
