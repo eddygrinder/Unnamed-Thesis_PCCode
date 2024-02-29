@@ -3152,7 +3152,7 @@
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
   )
-  (global_label "B" (shape input) (at 42.7736 106.2228 90) (fields_autoplaced)
+  (global_label "D" (shape input) (at 42.7736 106.2228 90) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left))
     (uuid 93093763-4932-45b8-ad2a-1a84cdbbf672)
     (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 42.7736 101.9676 90)
