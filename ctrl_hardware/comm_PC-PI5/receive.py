@@ -4,6 +4,8 @@ import socket
 HOST = ''  # Todos os endereços disponíveis
 PORT = 12345  # Porta de escuta
 
+stringCfgVoltage = ""
+
 # Criar um socket TCP/IP
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     # Vincular o socket ao endereço e porta de escuta
@@ -23,6 +25,14 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             data = conn.recv(1024)
             if not data:    
                 break
-            mensagem = data.decode()
-            print("Mensagem recebida:", mensagem)
+            string = data.decode()
+            if len(string) == 3:
+                stringCfgResistence = string                
+                print("Mensagem recebida:", stringCfgResistence)
+            if len(string) == 5:
+                stringCfgVoltage = string
+                print("Mensagem rec:", stringCfgVoltage)
+            stringReles = stringCfgResistence + stringCfgVoltage     
+            print("Msg recebida:", stringReles)
+       
         conn.close()
