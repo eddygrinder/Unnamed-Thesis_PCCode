@@ -4,6 +4,7 @@ from .models import Note
 from . import db
 import json
 from configVB import read_Vcc_R
+from configString import readVoltage
 
 views = Blueprint('views', __name__)
 
@@ -23,9 +24,16 @@ def home():
 def config_VirtualBench():
     Vcc = request.args.get('Vcc', 0, int)
     Resistence = request.args.get('R',0, int)
-    print(f'Valores Recebidos - Vcc: {Vcc}, Resitence: {Resistence}')
+    
+    print(f'Valores Recebidos - Vcc: {Vcc}, Resistence: {Resistence}')
     
     measurement_results = read_Vcc_R(Vcc, Resistence)
     print(f'MeAsure: {measurement_results}')
 
     return jsonify({'measurement_result': measurement_results})
+
+@views.route('/read_Voltage', methods=['GET', 'POST'])
+@login_required
+def read_Voltage():
+    readVoltage()
+    return jsonify({'measurement_result': 12})

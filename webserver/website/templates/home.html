@@ -57,17 +57,17 @@ Remember to set the width: -->
       <select id="selectR">
         <option value="0">Seleccionar R:</option>
         <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
+        <option value="2">1.1</option>
+        <option value="3">1.5</option>
       </select>
     </div>
     <a href="#" class="next round" id="botaoOK">OKTensão &raquo; </a>
   </div>
   <div class="column right">
-    <a href="#" class="next round" id="botaoOK"><b>Medir Tensão</b> &raquo; </a>
-    
-      <p id="resultado-medicao"></p>
-    </div>
+    <a href="#" class="next round" id="medirtensao"><b>Medir Tensão</b> &raquo; </a>
+    <p id="resultado-medicao"></p>
+</div>
+
 
     <!----------------------------------------->
     <!-- Scripts zone -->
@@ -85,10 +85,28 @@ Remember to set the width: -->
           .then(data => {
             // Acessar a variável measurement_results
             console.log(data.measurement_result);
-            document.getElementById("resultado-medicao").innerHTML = data.measurement_result;
+            //document.getElementById("resultado-medicao").innerHTML = data.measurement_result;
           });
       });
     </script>
+
+<script>
+  document.getElementById("medirtensao").addEventListener("click", function(event) {
+    event.preventDefault(); // Impede o comportamento padrão do link
+
+    // Enviar requisição AJAX para a rota /read_Voltage
+    fetch("/read_Voltage")
+      .then(response => response.json())
+      .then(data => {
+        // Acessar a variável measurement_results
+        console.log(data.measurement_result);
+        document.getElementById("resultado-medicao").innerHTML = data.measurement_result;
+      })
+            .catch(error => {
+                console.error('Erro ao fazer requisição:', error);
+            });
+    });
+</script>
 
     <script>
       function openchoice(evt, choice) {
