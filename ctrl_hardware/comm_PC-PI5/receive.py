@@ -13,15 +13,16 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.listen()
     
     print("Aguardando conexões...")
-    
-    # Aceitar a conexão
-    conn, addr = s.accept()
-    
-    with conn:
+    while True:
+        # Aceitar a conexão
+        conn, addr = s.accept()
         print('Conectado por', addr)
         
-        # Receber a mensagem
-        data = conn.recv(1024)
-        mensagem = data.decode()
-        
-        print("Mensagem recebida:", mensagem)
+        while True:    
+            # Receber a mensagem
+            data = conn.recv(1024)
+            if not data:    
+                break
+            mensagem = data.decode()
+            print("Mensagem recebida:", mensagem)
+        conn.close()
