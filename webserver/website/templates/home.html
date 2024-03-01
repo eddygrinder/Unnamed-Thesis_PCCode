@@ -64,8 +64,8 @@ Remember to set the width: -->
     <a href="#" class="next round" id="botaoOK">OKTensão &raquo; </a>
   </div>
   <div class="column right">
-    <a href="#" class="next round" id="medirtensao"><b>Medir Tensão</b> &raquo; </a>
-    <p id="resultado-medicao"></p>
+    <a href="#" class="next round" id="measureVoltage"><b>Medir Tensão</b> &raquo; </a>
+    
 </div>
 
 
@@ -78,34 +78,37 @@ Remember to set the width: -->
         // Obter valores dos selects
         const Vcc = document.getElementById("selectVcc").value;
         const Resistence = document.getElementById("selectR").value;
-    
+        
         // Enviar requisição AJAX para a rota /ctrl_VirtualBench
         fetch("/config_VirtualBench?Vcc=" + Vcc + "&R=" + Resistence)
           .then(response => response.json())
           .then(data => {
             // Acessar a variável measurement_results
             console.log(data.measurement_result);
-            //document.getElementById("resultado-medicao").innerHTML = data.measurement_result;
+            document.getElementById("resultado-medicao").innerHTML = data.measurement_result;
           });
       });
     </script>
 
 <script>
-  document.getElementById("medirtensao").addEventListener("click", function(event) {
-    event.preventDefault(); // Impede o comportamento padrão do link
-
-    // Enviar requisição AJAX para a rota /read_Voltage
-    fetch("/read_Voltage")
-      .then(response => response.json())
-      .then(data => {
-        // Acessar a variável measurement_results
-        console.log(data.measurement_result);
-        document.getElementById("resultado-medicao").innerHTML = data.measurement_result;
-      })
-            .catch(error => {
-                console.error('Erro ao fazer requisição:', error);
-            });
-    });
+  document.getElementById("measureVoltage").addEventListener("click", function() {
+        // Obter valores dos selects
+        const Vcc = document.getElementById("selectVcc").value;
+        const Resistence = document.getElementById("selectR").value;
+        
+        if (Vcc == 0 && Resistence == 0) {
+          console.log(Vcc, Resistence);
+          return;
+        }
+        // Enviar requisição AJAX para a rota /ctrl_VirtualBench
+        fetch("/read_Voltage?Vcc=" + Vcc + "&R=" + Resistence)
+          .then(response => response.json())
+          .then(data => {
+            // Acessar a variável measurement_results
+            console.log(data.measurement_result);
+            document.getElementById("resultado-medicao").innerHTML = data.measurement_result;
+          });
+      });
 </script>
 
     <script>

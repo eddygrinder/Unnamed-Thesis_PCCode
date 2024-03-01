@@ -24,9 +24,7 @@ def home():
 def config_VirtualBench():
     Vcc = request.args.get('Vcc', 0, int)
     Resistence = request.args.get('R',0, int)
-    
-    print(f'Valores Recebidos - Vcc: {Vcc}, Resistence: {Resistence}')
-    
+      
     measurement_results = read_Vcc_R(Vcc, Resistence)
     print(f'MeAsure: {measurement_results}')
 
@@ -35,5 +33,13 @@ def config_VirtualBench():
 @views.route('/read_Voltage', methods=['GET', 'POST'])
 @login_required
 def read_Voltage():
-    readVoltage()
+    Vcc = request.args.get('Vcc', 0, int)
+    Resistence = request.args.get('R',0, int)
+    print(Vcc)
+    print(Resistence)
+
+    #if Vcc == None and Resistence == None:
+     #   print('MeAsure: {measurement_results}AA')
+    #else:
+     #   readVoltage()
     return jsonify({'measurement_result': 12})
