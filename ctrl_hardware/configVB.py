@@ -37,62 +37,53 @@ sys.path.append(ctrl_hardware_path)
 
 # This examples demonstrates how to make measurements using the Power
 
-def read_Vcc_R (Vcc, Resistence):
+def config_Parameters (Vcc: int, Resistance: int, measeure_parameter: str):
     Vcc = int(Vcc) # É passado o parâmetro em forma de string mas é necessária a conversão para int
-    Resistence = int(Resistence)
+
+    if measeure_parameter == "voltage":
+        print("Voltage measurement")
+    elif measeure_parameter == "current":
+        print("Current measurement")
     
-    match Resistence:
-        case 0:
-            print("ERROR: Resistence is 0")
-
-        case 1:
-            Resistence = 1
-            stringValue = "100"
-        
-        case 2:
-            Resistence = 1.5
-            stringValue = "010"
-        
-        case 3:
-            Resistence = 2.2
-            stringValue = "001"
-
-        case _:
-            print("ERROR: Resistence is not 1, 1.5 or 2.2 KOhm")
-
+    
+    measurement_result = Vcc*random.uniform(1, 5)
     measurement_result = Vcc*random.uniform(1, 5)
 
     print("Measurement: %f V" % (Vcc))
     print("Measurement: %f V" % (measurement_result))
     #print("Measurement: %f KOhm" % (Resistence))
     
-    send_Socket(stringValue)
+    config_Relays(Resistance)
 
     return measurement_result
 
-
-def readVoltage():
+def config_Relays(Resistance: int):
     stringValue = "11011"
             # Endereço IP e porta do Raspberry Pi
     HOST = '192.168.1.75'  # Substitua pelo endereço IP do Raspberry Pi
     PORT = 12345  # Porta de escuta no Raspberry Pi
 
-    # Criar um socket TCP/IP
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        # Conectar-se ao servidor (Raspberry Pi)
-        s.connect((HOST, PORT))
-        
-        # Enviar a mensagem
-        s.sendall(stringValue.encode())
-        
-        print("Mensagem enviada com sucesso.")
+    match Resistance:
+        case 0:
+            print("ERROR: Resistence is 0")
+            stringValue = "000" # Valor de resistência inválido - relés OBRIGATORIAMENTE desligados
 
-def send_Socket(stringValue):
-        # Endereço IP e porta do Raspberry Pi
-    HOST = '192.168.1.75'  # Substitua pelo endereço IP do Raspberry Pi
-    PORT = 12345  # Porta de escuta no Raspberry Pi
+        case 1:
+            Resistance = 1
+            stringValue = "100"
+        
+        case 2:
+            Resistance = 1.5
+            stringValue = "010"
+        
+        case 3:
+            Resistance = 2.2
+            stringValue = "001"
 
-    # Criar um socket TCP/IP
+        case _:
+            print("ERROR: Resistence is not 1, 1.5 or 2.2 KOhm")
+    
+        # Criar um socket TCP/IP
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         # Conectar-se ao servidor (Raspberry Pi)
         s.connect((HOST, PORT))

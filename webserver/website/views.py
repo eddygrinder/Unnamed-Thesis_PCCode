@@ -3,8 +3,8 @@ from flask_login import login_required, current_user
 from .models import Note
 from . import db
 import json
-from configVB import read_Vcc_R
-from configString import readVoltage
+from configVB import config_Parameters
+from configString import config_Relays
 
 views = Blueprint('views', __name__)
 
@@ -23,23 +23,23 @@ def home():
 @login_required
 def config_VirtualBench():
     Vcc = request.args.get('Vcc', 0, int)
-    Resistence = request.args.get('R',0, int)
-      
-    measurement_results = read_Vcc_R(Vcc, Resistence)
-    print(f'MeAsure: {measurement_results}')
+    Resistance = request.args.get('R',0, int)
+    measure_parameter = request.args.get('parameter')
 
-    return jsonify({'measurement_result': measurement_results})
+    print(f'measure_parameter: {measure_parameter}')
+    
+    measurement_voltage = config_Parameters(Vcc, Resistance, measure_parameter)
+
+    print(f'MeAsure: {measurement_voltage}')
+
+    return jsonify({'measurement_result': measurement_voltage})
 
 @views.route('/read_Voltage', methods=['GET', 'POST'])
 @login_required
 def read_Voltage():
     Vcc = request.args.get('Vcc', 0, int)
-    Resistence = request.args.get('R',0, int)
-    print(Vcc)
-    print(Resistence)
+    Resistance = request.args.get('R',0, int)
+    print(f'MeAsure: {Vcc}')
+    print(Resistance)
 
-    #if Vcc == None and Resistence == None:
-     #   print('MeAsure: {measurement_results}AA')
-    #else:
-     #   readVoltage()
     return jsonify({'measurement_result': 12})
