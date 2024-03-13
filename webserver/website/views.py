@@ -3,8 +3,8 @@ from flask_login import login_required, current_user
 from .models import Note
 from . import db
 import json
-from configVB import config_Parameters
-from configString import config_Relays
+from configRelays import config_Parameters
+from configVB import config_VB_DMM
 
 views = Blueprint('views', __name__)
 
@@ -28,18 +28,9 @@ def config_VirtualBench():
 
     print(f'measure_parameter: {measure_parameter}')
     
-    measurement_voltage = config_Parameters(Vcc, Resistance, measure_parameter)
+    config_Parameters(Resistance, measure_parameter)
+    measurement_result = config_VB_DMM (Vcc, measure_parameter)
 
-    print(f'MeAsure: {measurement_voltage}')
+    print(f'MeAsure: {measurement_result}')
 
-    return jsonify({'measurement_result': measurement_voltage})
-
-@views.route('/read_Voltage', methods=['GET', 'POST'])
-@login_required
-def read_Voltage():
-    Vcc = request.args.get('Vcc', 0, int)
-    Resistance = request.args.get('R',0, int)
-    print(f'MeAsure: {Vcc}')
-    print(Resistance)
-
-    return jsonify({'measurement_result': 12})
+    return jsonify({'measurement_result': measurement_result})
