@@ -3,8 +3,15 @@ from flask_login import login_required, current_user
 from .models import Note
 from . import db
 import json
+import os, sys
+
 from configRelays import config_Parameters
 from configVB import config_VB_DMM
+
+# Caminho para o diretório ctrl_hardware
+ctrl_hardware_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'ctrl_hardware'))
+# Adiciona o diretório ao sys.path
+sys.path.append(ctrl_hardware_path)
 
 views = Blueprint('views', __name__)
 
