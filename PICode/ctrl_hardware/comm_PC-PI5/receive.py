@@ -25,14 +25,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             data = conn.recv(1024)
             if not data:    
                 break
-            string = data.decode()
-            if len(string) == 3:
-                stringCfgResistence = string                
-                print("Mensagem recebida:", stringCfgResistence)
-            if len(string) == 5:
-                stringCfgVoltage = string
-                print("Mensagem rec:", stringCfgVoltage)
-            stringReles = stringCfgResistence + stringCfgVoltage     
-            print("Msg recebida:", stringReles)
+            string = data.decode()  
+            print("Msg recebida:", string)
        
         conn.close()
