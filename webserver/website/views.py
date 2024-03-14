@@ -5,13 +5,9 @@ from . import db
 import json
 import os, sys
 
-from configRelays import config_Parameters
-from configVB import config_VB_DMM
 
-# Caminho para o diretório ctrl_hardware
-ctrl_hardware_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'ctrl_hardware'))
-# Adiciona o diretório ao sys.path
-sys.path.append(ctrl_hardware_path)
+from ctrl_hardware.configVB import config_VB_DMM
+from ctrl_hardware.configRelays import config_Parameters
 
 views = Blueprint('views', __name__)
 

@@ -97,7 +97,7 @@ def config_Parameters (Resistance: int, measeure_parameter: str):
     
 def config_Relays(stringValue: str):
     # Endereço IP e porta do Raspberry Pi
-    HOST = '192.168.30.101'  # Substitua pelo endereço IP do Raspberry Pi
+    HOST = '172.18.159.205'  # Substitua pelo endereço IP do Raspberry Pi
     PORT = 12345  # Porta de escuta no Raspberry Pi 
     
         # Criar um socket TCP/IP
